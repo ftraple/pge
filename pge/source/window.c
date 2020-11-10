@@ -92,7 +92,7 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     if (window->fps == 0) {
         window->frame_step_ms = 0;
     } else {
-        window->frame_step_ms = 1000 / window->fps;
+        window->frame_step_ms = 1000.0f / window->fps;
     }
     window->frame_start = SDL_GetTicks();
     window->frame_rate = window->fps;
@@ -179,10 +179,10 @@ void pge_window_clear(pge_Color color) {
 void pge_window_show() {
     SDL_RenderPresent(window->sdl_renderer);
     // Frame rate
-    Uint32 frame_end = SDL_GetTicks();
+    float frame_end = SDL_GetTicks();
     // Calculate frame rate
     window->frame_rate_count++;
-    if (frame_end > window->frame_rate_start + 1000) {
+    if (frame_end > window->frame_rate_start + 1000.0f) {
         window->frame_rate = window->frame_rate_count;
         window->frame_rate_count = 0;
         window->frame_rate_start = frame_end;

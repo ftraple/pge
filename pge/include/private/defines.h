@@ -39,8 +39,8 @@ struct pge_Window_t {
     SDL_Window *sdl_window;
     SDL_Renderer *sdl_renderer;
     bool is_running;
-    Uint32 frame_step_ms;
-    Uint32 frame_start;
+    float frame_step_ms;
+    float frame_start;
     int frame_rate;
     int frame_rate_count;
     Uint32 frame_rate_start;
