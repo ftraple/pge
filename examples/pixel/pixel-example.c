@@ -7,7 +7,7 @@ int main() {
     int width = 160;
     int height = 120;
     int pixel_scale = 4;
-    int fps = 0;
+    int fps = 60;
     if (!pge_window_create("Pixel Game Engine - Primitives", width, height, pixel_scale, fps, false)) {
         return EXIT_FAILURE;
     }
@@ -21,6 +21,7 @@ int main() {
         int x1 = rand() % width;
         int y1 = rand() % height;
         pge_draw_point(x1, y1);
+        // Update window
         pge_window_show();
     }
     // Destroy window

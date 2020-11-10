@@ -2,25 +2,6 @@
 
 PGE is a simple, fast cross-platform 2D game engine. It provides access to windowing, graphics, audio and controllers. It is written in C.
 
-## Dependencies
-
-* [SDL](https://www.libsdl.org/download-2.0.php)
-* [SDL_image](https://www.libsdl.org/projects/SDL_image/)
-* [SDL_ttf](https://www.libsdl.org/projects/SDL_ttf/)
-* [SDL_mixer](https://www.libsdl.org/projects/SDL_mixer/)
-
-## How To Install
-
-```bash
-git clone git@github.com:ftraple/pge.git
-cd pge
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
-```
-
 ## Example
 
 ```c++
@@ -47,10 +28,27 @@ int main() {
         int x1 = rand() % width;
         int y1 = rand() % height;
         pge_draw_point(x1, y1);
+        // Update window
         pge_window_show();
     }
     // Destroy window
     pge_window_destroy();
     return EXIT_SUCCESS;
 }
+```
+
+## Dependencies
+
+[SDL](https://www.libsdl.org/download-2.0.php) - [SDL_image](https://www.libsdl.org/projects/SDL_image/) - [SDL_ttf](https://www.libsdl.org/projects/SDL_ttf/) - [SDL_mixer](https://www.libsdl.org/projects/SDL_mixer/)
+
+## How To Install
+
+```bash
+git clone git@github.com:ftraple/pge.git
+cd pge
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
 ```
