@@ -1,5 +1,5 @@
-#include "pixel-game-engine.h"
 #include "defines.h"
+#include "pixel-game-engine.h"
 
 extern pge_Window *window;
 
@@ -20,7 +20,6 @@ const char *pge_controller_get_mapping(unsigned int controller_number) {
 int pge_controller_add_mapping(const char *mapping) {
     return SDL_GameControllerAddMapping(mapping);
 }
-
 
 bool pge_controller_dpad_up(unsigned int controller_number) {
     if (controller_number >= 8) return false;

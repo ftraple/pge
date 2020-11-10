@@ -154,3 +154,7 @@ int pge_window_get_fps() {
 bool pge_window_is_fullscreen() {
     return window->is_fullscreen;
 }
+
+int pge_window_get_frame_rate() {
+    return window->frame_rate;
+}

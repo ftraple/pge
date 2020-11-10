@@ -49,6 +49,7 @@ int pge_window_get_height();
 int pge_window_get_scale();
 int pge_window_get_fps();
 bool pge_window_is_fullscreen();
+int pge_window_get_frame_rate();
 
 // Controllers
 //--------------------------------------------------------------------------------
