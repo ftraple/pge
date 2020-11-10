@@ -16,22 +16,33 @@ int main(int argc, char **argv) {
     int x = (width / 2) - radius;
     int y = (height / 2) - radius;
 
-    printf("%d\n", pge_controller_amount());
+    printf("Amount of controllers: %d\n", pge_controller_amount());
 
     while (pge_window_is_running()) {
         pge_window_clear(PGE_COLOR_BLACK);
 
-        if (pge_controller_left_axis_x(0) < 0) {
-            x--;
-        }
-        if (pge_controller_left_axis_x(0) > 0) {
-            x++;
-        }
-        if (pge_controller_left_axis_y(0) < 0) {
-            y--;
-        }
-        if (pge_controller_left_axis_y(0) > 0) {
-            y++;
+        if (pge_controller_amount() == 0) {
+            if (pge_controller_dpad_left(0)) {
+                x--;
+            } else if (pge_controller_dpad_right(0)) {
+                x++;
+            }
+            if (pge_controller_dpad_up(0)) {
+                y--;
+            } else if (pge_controller_dpad_down(0)) {
+                y++;
+            }
+        } else {
+            if (pge_controller_left_axis_x(0) < 0) {
+                x--;
+            } else if (pge_controller_left_axis_x(0) > 0) {
+                x++;
+            }
+            if (pge_controller_left_axis_y(0) < 0) {
+                y--;
+            } else if (pge_controller_left_axis_y(0) > 0) {
+                y++;
+            }
         }
 
         if (pge_controller_button(0, PGE_CONTROLLER_BUTTON_A)) {

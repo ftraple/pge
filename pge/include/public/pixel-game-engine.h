@@ -13,7 +13,7 @@ typedef struct pge_Text_t *pge_TextObj;
 typedef struct pge_Image_t *pge_ImageObj;
 
 typedef enum {
-    PGE_CONTROLLER_BUTTON_A = 1,
+    PGE_CONTROLLER_BUTTON_A,
     PGE_CONTROLLER_BUTTON_B,
     PGE_CONTROLLER_BUTTON_X,
     PGE_CONTROLLER_BUTTON_Y,

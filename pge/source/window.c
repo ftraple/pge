@@ -61,11 +61,12 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     SDL_RenderSetLogicalSize(window->sdl_renderer, width, height);
     SDL_RenderSetScale(window->sdl_renderer, scale, scale);
 
-    // Initialize controllers
-    for (int i = 0; i < 8; ++i) {
+    // Initialize controllers and keyboard
+    for (int i = 0; i < 8; i++) {
         window->controller[i].is_valid = false;
     }
-    for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+    window->controller_amount = SDL_NumJoysticks();
+    for (int i = 0; i < window->controller_amount; i++) {
         if (SDL_IsGameController(i)) {
             window->controller[i].sdl_game_controller = SDL_GameControllerOpen(i);
             if (!window->controller[i].sdl_game_controller) {
@@ -75,7 +76,19 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
             }
         }
     }
+    window->keyboard.dpad_up = false;
+    window->keyboard.dpad_down = false;
+    window->keyboard.dpad_left = false;
+    window->keyboard.dpad_right = false;
+    window->keyboard.left_axis_x = 0;
+    window->keyboard.left_axis_y = 0;
+    window->keyboard.right_axis_x = 0;
+    window->keyboard.right_axis_y = 0;
+    for (int i = 0; i < 11; i++) {
+        window->keyboard.button[i] = false;
+    }
 
+    // FPS
     if (window->fps == 0) {
         window->frame_step_ms = 0;
     } else {
@@ -104,6 +117,56 @@ bool pge_window_is_running() {
             window->is_running = false;
             break;
         }
+        if (window->controller_amount == 0) {
+            if (sdl_event.type == SDL_KEYDOWN) {
+                // Dpad
+                if (sdl_event.key.keysym.sym == SDLK_UP) {
+                    window->keyboard.dpad_up = true;
+                } else if (sdl_event.key.keysym.sym == SDLK_DOWN) {
+                    window->keyboard.dpad_down = true;
+                }
+                if (sdl_event.key.keysym.sym == SDLK_LEFT) {
+                    window->keyboard.dpad_left = true;
+                } else if (sdl_event.key.keysym.sym == SDLK_RIGHT) {
+                    window->keyboard.dpad_right = true;
+                }
+                // Buttons
+                if (sdl_event.key.keysym.sym == SDLK_z) window->keyboard.button[0] = true;   // A
+                if (sdl_event.key.keysym.sym == SDLK_x) window->keyboard.button[1] = true;   // B
+                if (sdl_event.key.keysym.sym == SDLK_c) window->keyboard.button[2] = true;   // X
+                if (sdl_event.key.keysym.sym == SDLK_v) window->keyboard.button[3] = true;   // Y
+                if (sdl_event.key.keysym.sym == SDLK_1) window->keyboard.button[4] = true;   // Back
+                if (sdl_event.key.keysym.sym == SDLK_2) window->keyboard.button[5] = true;   // Guide
+                if (sdl_event.key.keysym.sym == SDLK_3) window->keyboard.button[6] = true;   // Start
+                if (sdl_event.key.keysym.sym == SDLK_a) window->keyboard.button[7] = true;   // Left Steack
+                if (sdl_event.key.keysym.sym == SDLK_s) window->keyboard.button[8] = true;   // Right Steack
+                if (sdl_event.key.keysym.sym == SDLK_d) window->keyboard.button[9] = true;   // Left Shoulder
+                if (sdl_event.key.keysym.sym == SDLK_f) window->keyboard.button[10] = true;  // Right Shouder
+            } else if (sdl_event.type == SDL_KEYUP) {
+                if (sdl_event.key.keysym.sym == SDLK_UP) {
+                    window->keyboard.dpad_up = false;
+                } else if (sdl_event.key.keysym.sym == SDLK_DOWN) {
+                    window->keyboard.dpad_down = false;
+                }
+                if (sdl_event.key.keysym.sym == SDLK_LEFT) {
+                    window->keyboard.dpad_left = false;
+                } else if (sdl_event.key.keysym.sym == SDLK_RIGHT) {
+                    window->keyboard.dpad_right = false;
+                }
+                // Buttons
+                if (sdl_event.key.keysym.sym == SDLK_z) window->keyboard.button[0] = false;   // A
+                if (sdl_event.key.keysym.sym == SDLK_x) window->keyboard.button[1] = false;   // B
+                if (sdl_event.key.keysym.sym == SDLK_c) window->keyboard.button[2] = false;   // X
+                if (sdl_event.key.keysym.sym == SDLK_v) window->keyboard.button[3] = false;   // Y
+                if (sdl_event.key.keysym.sym == SDLK_1) window->keyboard.button[4] = false;   // Back
+                if (sdl_event.key.keysym.sym == SDLK_2) window->keyboard.button[5] = false;   // Guide
+                if (sdl_event.key.keysym.sym == SDLK_3) window->keyboard.button[6] = false;   // Start
+                if (sdl_event.key.keysym.sym == SDLK_a) window->keyboard.button[7] = false;   // Left Steack
+                if (sdl_event.key.keysym.sym == SDLK_s) window->keyboard.button[8] = false;   // Right Steack
+                if (sdl_event.key.keysym.sym == SDLK_d) window->keyboard.button[9] = false;   // Left Shoulder
+                if (sdl_event.key.keysym.sym == SDLK_f) window->keyboard.button[10] = false;  // Right Shouder
+            }
+        }
     }
     return window->is_running;
 }
@@ -123,7 +186,6 @@ void pge_window_show() {
         window->frame_rate = window->frame_rate_count;
         window->frame_rate_count = 0;
         window->frame_rate_start = frame_end;
-        //printf("%d\n", window->frame_rate);
     }
     // Wait until next frame
     if (window->fps > 0) {
