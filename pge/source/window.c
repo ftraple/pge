@@ -21,6 +21,7 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     window->height = height;
     window->scale = scale;
     window->fps = fps;
+    window->is_fullscreen = fullscreen;
     window->is_running = false;
     window->audio_voulume = SDL_MIX_MAXVOLUME;
     window->audio_muted = false;
@@ -64,7 +65,6 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     for (int i = 0; i < 8; ++i) {
         window->controller[i].is_valid = false;
     }
-
     for (int i = 0; i < SDL_NumJoysticks(); ++i) {
         if (SDL_IsGameController(i)) {
             window->controller[i].sdl_game_controller = SDL_GameControllerOpen(i);
@@ -133,4 +133,24 @@ void pge_window_show() {
         }
         window->frame_start += window->frame_step_ms;
     }
+}
+
+int pge_window_get_with() {
+    return window->width;
+}
+
+int pge_window_get_height() {
+    return window->height;
+}
+
+int pge_window_get_scale() {
+    return window->scale;
+}
+
+int pge_window_get_fps() {
+    return window->fps;
+}
+
+bool pge_window_is_fullscreen() {
+    return window->is_fullscreen;
 }

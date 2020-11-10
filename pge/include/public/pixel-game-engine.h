@@ -44,6 +44,11 @@ void pge_window_destroy();
 bool pge_window_is_running();
 void pge_window_clear(pge_Color color);
 void pge_window_show();
+int pge_window_get_with();
+int pge_window_get_height();
+int pge_window_get_scale();
+int pge_window_get_fps();
+bool pge_window_is_fullscreen();
 
 // Controllers
 //--------------------------------------------------------------------------------
