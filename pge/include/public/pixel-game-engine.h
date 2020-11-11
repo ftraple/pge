@@ -36,6 +36,7 @@ typedef enum {
 //--------------------------------------------------------------------------------
 int pge_get_major_version();
 int pge_get_minor_version();
+const char* pge_get_error();
 
 // Window
 //--------------------------------------------------------------------------------
@@ -90,6 +91,7 @@ void pge_font_unload(pge_FontObj font_obj);
 // Text
 //--------------------------------------------------------------------------------
 pge_TextObj pge_text_create(pge_FontObj font_obj, const char *text, pge_Color color);
+void pge_text_destroy(pge_TextObj text_obj);
 void pge_text_set(pge_TextObj text_obj, const char *text);
 void pge_text_set_color(pge_TextObj text_obj, pge_Color color);
 int pge_text_get_width(pge_TextObj text_obj);

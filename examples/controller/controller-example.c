@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
     int width = 160;
     int height = 120;
     if (!pge_window_create("PGE - Controller Example", width, height, 4, 60, false)) {
+        printf("%s\n", pge_get_error());
         return EXIT_FAILURE;
     }
     // Game loop

@@ -2,19 +2,13 @@
 
 pge_Window *window = NULL;
 
-int pge_get_major_version() {
-    return PGE_MAJOR_VERSION;
-};
-int pge_get_minor_version() {
-    return PGE_MINOR_VERSION;
-};
-
 bool pge_window_create(const char *title, int width, int height, int scale, int fps, bool fullscreen) {
     if (scale <= 0) scale = 1;
+    pge_set_error_message("");
     // Create the window object
     window = (pge_Window *)malloc(sizeof(struct pge_Window_t));
     if (!window) {
-        printf("Fail to allocate window memory.\n");
+        pge_set_error_message("Fail to allocate window memory.");
         return false;
     }
     window->width = width;
@@ -28,14 +22,14 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
 
     // Intialize the SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        printf("Fail to init the SDL: %s\n", SDL_GetError());
+        pge_set_error_message("Fail to init SDL: %s", SDL_GetError());
         return false;
     }
 
     // Intialize the TTF
     int result = TTF_Init();
     if (TTF_Init() != 0) {
-        printf("Fail to init the TTF: %s\n", SDL_GetError());
+        pge_set_error_message("Fail to init SDL_ttf: %s", TTF_GetError());
         return false;
     }
 
@@ -43,18 +37,18 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // Create the SDL window
-    window->sdl_window = SDL_CreateWindow(
-        title,
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width * scale, height * scale,
-        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    window->sdl_window = SDL_CreateWindow(title,
+                                          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                          width * scale, height * scale,
+                                          SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (!window->sdl_window) {
-        printf("SDL: Fail to create the window: %s\n", SDL_GetError());
+        pge_set_error_message("Fail to create the SDL window: %s", TTF_GetError());
         return false;
     }
     // Create the SDL renderer
     window->sdl_renderer = SDL_CreateRenderer(window->sdl_window, -1, SDL_RENDERER_ACCELERATED);
     if (!window->sdl_renderer) {
-        printf("SDL: Fail to create the renderer: %s\n", SDL_GetError());
+        pge_set_error_message("Fail to create the SDL renderer: %s", TTF_GetError());
         return false;
     }
     SDL_SetWindowMinimumSize(window->sdl_window, width * scale, height * scale);
@@ -70,7 +64,7 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
         if (SDL_IsGameController(i)) {
             window->controller[i].sdl_game_controller = SDL_GameControllerOpen(i);
             if (!window->controller[i].sdl_game_controller) {
-                fprintf(stderr, "Could not open game controller %i: %s\n", i, SDL_GetError());
+                pge_set_error_message("Could not open game controller [%i]: %s", i, SDL_GetError());
             } else {
                 window->controller[i].is_valid = true;
             }

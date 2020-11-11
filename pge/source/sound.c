@@ -11,12 +11,12 @@ struct pge_Sound_t {
 pge_SoundObj pge_sound_load(const char *file_name) {
     pge_SoundObj sound_obj = (pge_SoundObj)malloc(sizeof(struct pge_Sound_t));
     if (!sound_obj) {
-        printf("Fail to allocate sound memory.\n");
+        pge_set_error_message("Fail to allocate sound memory.");
         return NULL;
     }
     sound_obj->sdl_sound = Mix_LoadWAV(file_name);
     if (!sound_obj->sdl_sound) {
-        printf("Fail to load sound: %s\n", Mix_GetError());
+        pge_set_error_message("Fail to load sound: %s", Mix_GetError());
         return NULL;
     }
     sound_obj->channel = -1;
@@ -35,7 +35,7 @@ void pge_sound_play(pge_SoundObj sound_obj, bool loop) {
     if (loop) loop_num = -1;
     sound_obj->channel = Mix_PlayChannel(-1, sound_obj->sdl_sound, loop_num);
     if (sound_obj->channel == -1) {
-        printf("Fail to play the sound: %s\n", Mix_GetError());
+        pge_set_error_message("Fail to play the sound: %s", Mix_GetError());
     }
 }
 

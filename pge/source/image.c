@@ -12,19 +12,19 @@ struct pge_Image_t {
 pge_ImageObj pge_image_load(const char *file_name) {
     SDL_Surface *surface = IMG_Load(file_name);
     if (!surface) {
-        printf("Fail to load the texture: %s\n", SDL_GetError());
+        pge_set_error_message("Fail to load the texture: %s", SDL_GetError());
         return NULL;
     }
     SDL_Texture *sdl_texture = SDL_CreateTextureFromSurface(window->sdl_renderer, surface);
     SDL_FreeSurface(surface);
     if (!sdl_texture) {
-        printf("Fail to create the texture: %s\n", SDL_GetError());
+        pge_set_error_message("Fail to create the texture: %s", SDL_GetError());
         return NULL;
     }
     pge_ImageObj image_obj = (pge_ImageObj)malloc(sizeof(struct pge_Image_t));
     if (!image_obj) {
         SDL_FreeSurface(surface);
-        printf("Fail to allocate texture memory.\n");
+        pge_set_error_message("Fail to allocate texture memory.");
         return NULL;
     }
     SDL_QueryTexture(sdl_texture, NULL, NULL, &(image_obj->width), &(image_obj->height));

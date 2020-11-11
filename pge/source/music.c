@@ -10,12 +10,12 @@ struct pge_Music_t {
 pge_MusicObj pge_music_load(const char *file_name) {
     pge_MusicObj music_obj = (pge_MusicObj)malloc(sizeof(struct pge_Music_t));
     if (!music_obj) {
-        printf("Fail to allocate music memory.\n");
+        pge_set_error_message("Fail to allocate music memory.");
         return NULL;
     }
     music_obj->sdl_music = Mix_LoadMUS(file_name);
     if (!music_obj->sdl_music) {
-        printf("Fail to load music: %s\n", Mix_GetError());
+        pge_set_error_message("Fail to load music: %s", Mix_GetError());
         return NULL;
     }
     return music_obj;
@@ -32,7 +32,7 @@ void pge_music_play(pge_MusicObj music_obj, bool loop) {
     int loop_num = 1;
     if (loop) loop_num = -1;
     if (Mix_PlayMusic(music_obj->sdl_music, loop_num) == -1) {
-        printf("Fail to play the music: %s\n", Mix_GetError());
+        pge_set_error_message("Fail to play the music: %s", Mix_GetError());
     }
 }
 

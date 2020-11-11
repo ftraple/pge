@@ -16,6 +16,7 @@ int main() {
     int pixel_scale = 4;
     int fps = 60;
     if (!pge_window_create("PGE - Pixel Example", width, height, pixel_scale, fps, false)) {
+        printf("%s\n", pge_pge_get_error());
         return EXIT_FAILURE;
     }
     // Game loop - randomly draw pixels

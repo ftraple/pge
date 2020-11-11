@@ -17,13 +17,13 @@ static void render_text(pge_TextObj text_obj) {
     SDL_Color text_color = {text_obj->color.r, text_obj->color.g, text_obj->color.b, text_obj->color.a};
     SDL_Surface* surface = TTF_RenderText_Solid(text_obj->font_obj->sdl_font, text_obj->text, text_color);
     if (surface == NULL) {
-        printf("Fail to render the text.\n");
+        pge_set_error_message("Fail to render the text: %s", TTF_GetError());
         return;
     }
     SDL_Texture* sdl_texture = SDL_CreateTextureFromSurface(window->sdl_renderer, surface);
     SDL_FreeSurface(surface);
     if (sdl_texture == NULL) {
-        printf("Fail to create the texture from the surface.\n");
+        pge_set_error_message("Fail to create the texture: %s", SDL_GetError());
         return;
     }
     if (text_obj->sdl_texture != NULL) {
@@ -36,7 +36,7 @@ static void render_text(pge_TextObj text_obj) {
 pge_TextObj pge_text_create(pge_FontObj font_obj, const char* text, pge_Color color) {
     pge_TextObj text_obj = (pge_TextObj)malloc(sizeof(struct pge_Text_t));
     if (!text_obj) {
-        printf("Fail to allocate text memory.\n");
+        pge_set_error_message("Fail to allocate text memory.");
         return NULL;
     }
     text_obj->font_obj = font_obj;
@@ -48,6 +48,14 @@ pge_TextObj pge_text_create(pge_FontObj font_obj, const char* text, pge_Color co
     text_obj->height = 0;
     render_text(text_obj);
     return text_obj;
+}
+
+void pge_text_destroy(pge_TextObj text_obj) {
+    if (text_obj == NULL) return;
+    if (text_obj->sdl_texture != NULL) {
+        SDL_DestroyTexture(text_obj->sdl_texture);
+    }
+    free(text_obj);
 }
 
 void pge_text_set(pge_TextObj text_obj, const char* text) {

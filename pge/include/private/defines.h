@@ -48,8 +48,6 @@ struct pge_Window_t {
     int controller_amount;
     ControllerKeyboard keyboard;
     Controller controller[8];
-
-
     // Audio
     int audio_voulume;
     bool audio_muted;
@@ -58,5 +56,7 @@ struct pge_Window_t {
 struct pge_Font_t {
     TTF_Font *sdl_font;
 };
+
+void pge_set_error_message(const char* format, ...);
 
 #endif  // PGE_WINDOW_H_
