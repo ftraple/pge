@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     // Create
     int width = 160;
     int height = 120;
-    if (!pge_window_create("Pixel Game Engine - Primitives", width, height, 4, 60, false)) {
+    if (!pge_window_create("PGE- Primitives Example", width, height, 4, 60, false)) {
         return EXIT_FAILURE;
     }
     // Game loop
@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
         // Repeat 100 times
         for (int i = 0; i < 100; i++) {
             pge_Color color = {rand() % 255, rand() % 255, rand() % 255, 255};
-            pge_draw_current_color(color);
+            pge_draw_set_current_color(color);
 
             int x1 = rand() % width;
             int y1 = rand() % height;
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
             // Show frame rate
             char text_frame_rate[100];
             snprintf(text_frame_rate, sizeof(text_frame_rate), "%d\n", pge_window_get_frame_rate());
-            pge_draw_current_color(PGE_COLOR_WHITE);
+            pge_draw_set_current_color(PGE_COLOR_WHITE);
             pge_draw_text(2, 2, 2, text_frame_rate);
         }
 

@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     // Create
     int width = 160;
     int height = 120;
-    if (!pge_window_create("Pixel Game Engine - Joypad", width, height, 4, 60, false)) {
+    if (!pge_window_create("PGE - Controller Example", width, height, 4, 60, false)) {
         return EXIT_FAILURE;
     }
     // Game loop
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
             printf("PGE_CONTROLLER_BUTTON_RIGHTSHOULDER\n");
         };
 
-        pge_draw_current_color(PGE_COLOR_PINK);
+        pge_draw_set_current_color(PGE_COLOR_PINK);
         pge_draw_circle(x, y, radius);
 
         pge_window_show();

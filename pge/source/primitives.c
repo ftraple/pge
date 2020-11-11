@@ -16,7 +16,7 @@ static PrimitiveFont font = {
     char_space : 2,
 };
 
-void pge_draw_current_color(pge_Color color) {
+void pge_draw_set_current_color(pge_Color color) {
     SDL_SetRenderDrawColor(window->sdl_renderer, color.r, color.g, color.b, color.a);
 }
 

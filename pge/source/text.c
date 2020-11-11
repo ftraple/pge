@@ -1,5 +1,5 @@
-#include "pixel-game-engine.h"
 #include "defines.h"
+#include "pixel-game-engine.h"
 
 extern pge_Window* window;
 
@@ -63,6 +63,16 @@ void pge_text_set_color(pge_TextObj text_obj, pge_Color color) {
     text_obj->color = color;
 }
 
+int pge_text_get_width(pge_TextObj text_obj) {
+    if (text_obj == NULL) return 0;
+    return text_obj->width;
+}
+
+int pge_text_get_height(pge_TextObj text_obj) {
+    if (text_obj == NULL) return 0;
+    return text_obj->height;
+}
+
 void pge_text_draw(pge_TextObj text_obj, int x, int y) {
     if (text_obj == NULL) return;
     if (text_obj->sdl_texture != NULL) {
@@ -71,4 +81,10 @@ void pge_text_draw(pge_TextObj text_obj, int x, int y) {
     }
 }
 
-void pge_text_draw_crop(pge_TextObj text_obj, int x, int y, int width, int height, int start_x, int start_y);
+void pge_text_draw_crop(pge_TextObj text_obj, int x, int y, int width, int height, int start_x, int start_y) {
+    if (text_obj == NULL) return;
+    if (text_obj->sdl_texture == NULL) return;
+    SDL_Rect src_rect = {start_x, start_y, width, height};
+    SDL_Rect dst_rect = {x, y, width, height};
+    SDL_RenderCopy(window->sdl_renderer, text_obj->sdl_texture, &src_rect, &dst_rect);
+}

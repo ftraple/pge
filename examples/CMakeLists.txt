@@ -1,3 +1,4 @@
 add_subdirectory(controller)
 add_subdirectory(pixel)
 add_subdirectory(primitives)
+add_subdirectory(text)

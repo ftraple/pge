@@ -5,6 +5,8 @@ extern pge_Window *window;
 
 struct pge_Image_t {
     SDL_Texture *sdl_texture;
+    int width;
+    int height;
 };
 
 pge_ImageObj pge_image_load(const char *file_name) {
@@ -25,18 +27,22 @@ pge_ImageObj pge_image_load(const char *file_name) {
         printf("Fail to allocate texture memory.\n");
         return NULL;
     }
+    SDL_QueryTexture(sdl_texture, NULL, NULL, &(image_obj->width), &(image_obj->height));
     image_obj->sdl_texture = sdl_texture;
     return image_obj;
 }
 
 void pge_image_unload(pge_ImageObj image_obj) {
     if (image_obj == NULL) return;
-    SDL_DestroyTexture(image_obj->sdl_texture);
+    if (image_obj->sdl_texture != NULL) {
+        SDL_DestroyTexture(image_obj->sdl_texture);
+    }
     free(image_obj);
 }
 
 void pge_draw_image(pge_ImageObj image_obj, int x, int y, int width, int height, int start_x, int start_y) {
     if (image_obj == NULL) return;
+    if (image_obj->sdl_texture == NULL) return;
     SDL_Rect src_rect = {start_x, start_y, width, height};
     SDL_Rect dst_rect = {x, y, width, height};
     SDL_RenderCopy(window->sdl_renderer, image_obj->sdl_texture, &src_rect, &dst_rect);
