@@ -1,5 +1,6 @@
 add_subdirectory(controller)
 add_subdirectory(image)
+add_subdirectory(music)
 add_subdirectory(pixel)
 add_subdirectory(primitives)
 add_subdirectory(text)
