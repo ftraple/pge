@@ -13,6 +13,7 @@ PGE is a simple, fast cross-platform 2D game engine. It provides access to windo
 ## Example <a name="example"></a>
 
 ```c++
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,7 +25,8 @@ int main() {
     int screeen_height = 120;
     int pixel_scale = 4;
     int fps = 60;
-    if (!pge_window_create("PGE - Pixel Example", screen_width, screeen_height, pixel_scale, fps, false)) {
+    bool fullscreen = false;
+    if (!pge_window_create("PGE - Pixel Example", screen_width, screeen_height, pixel_scale, fps, fullscreen)) {
         printf("%s\n", pge_get_error());
         return EXIT_FAILURE;
     }

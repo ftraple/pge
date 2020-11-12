@@ -6,16 +6,16 @@
 
 int main(int argc, char **argv) {
     // Create
-    int width = 160;
-    int height = 120;
-    if (!pge_window_create("PGE - Controller Example", width, height, 4, 60, false)) {
+    int screen_width = 160;
+    int screen_height = 120;
+    if (!pge_window_create("PGE - Controller Example", screen_width, screen_height, 4, 60, false)) {
         printf("%s\n", pge_get_error());
         return EXIT_FAILURE;
     }
     // Game loop
     int radius = 3;
-    int x = (width / 2) - radius;
-    int y = (height / 2) - radius;
+    int x = (screen_width / 2) - radius;
+    int y = (screen_height / 2) - radius;
 
     printf("Amount of controllers: %d\n", pge_controller_amount());
 

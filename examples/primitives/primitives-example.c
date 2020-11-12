@@ -6,9 +6,9 @@
 
 int main(int argc, char **argv) {
     // Create
-    int width = 160;
-    int height = 120;
-    if (!pge_window_create("PGE- Primitives Example", width, height, 4, 60, false)) {
+    int screen_width = 160;
+    int screen_height = 120;
+    if (!pge_window_create("PGE- Primitives Example", screen_width, screen_height, 4, 60, false)) {
         printf("%s\n", pge_get_error());
         return EXIT_FAILURE;
     }
@@ -20,11 +20,11 @@ int main(int argc, char **argv) {
             pge_Color color = {rand() % 255, rand() % 255, rand() % 255, 255};
             pge_draw_set_current_color(color);
 
-            int x1 = rand() % width;
-            int y1 = rand() % height;
-            int x2 = rand() % width;
-            int y2 = rand() % height;
-            int radius = rand() % width / 4;
+            int x1 = rand() % screen_width;
+            int y1 = rand() % screen_height;
+            int x2 = rand() % screen_width;
+            int y2 = rand() % screen_height;
+            int radius = rand() % screen_width / 4;
 
             int type = rand() % 6;
             switch (type) {

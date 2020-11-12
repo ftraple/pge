@@ -36,7 +36,7 @@ typedef enum {
 //--------------------------------------------------------------------------------
 int pge_get_major_version();
 int pge_get_minor_version();
-const char* pge_get_error();
+const char *pge_get_error();
 
 // Window
 //--------------------------------------------------------------------------------
@@ -103,7 +103,10 @@ void pge_text_draw_crop(pge_TextObj text_obj, int x, int y, int width, int heigh
 //--------------------------------------------------------------------------------
 pge_ImageObj pge_image_load(const char *file_name);
 void pge_image_unload(pge_ImageObj image_obj);
-void pge_draw_image(pge_ImageObj image_obj, int x, int y, int width, int height, int start_x, int start_y);
+int pge_image_get_width(pge_ImageObj image_obj);
+int pge_image_get_height(pge_ImageObj image_obj);
+void pge_image_draw(pge_ImageObj image_obj, int x, int y);
+void pge_image_draw_crop(pge_ImageObj image_obj, int x, int y, int width, int height, int start_x, int start_y);
 
 // Sound
 //--------------------------------------------------------------------------------
