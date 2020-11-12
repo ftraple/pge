@@ -5,11 +5,11 @@
 
 int main() {
     // Create window
-    int width = 160;
-    int height = 120;
+    int screen_width = 160;
+    int screeen_height = 120;
     int pixel_scale = 4;
     int fps = 60;
-    if (!pge_window_create("PGE - Pixel Example", width, height, pixel_scale, fps, false)) {
+    if (!pge_window_create("PGE - Pixel Example", screen_width, screeen_height, pixel_scale, fps, false)) {
         printf("%s\n", pge_get_error());
         return EXIT_FAILURE;
     }
@@ -20,8 +20,8 @@ int main() {
         pge_Color color = {rand() % 255, rand() % 255, rand() % 255, 255};
         pge_draw_set_current_color(color);
         // Draw pixel
-        int x1 = rand() % width;
-        int y1 = rand() % height;
+        int x1 = rand() % screen_width;
+        int y1 = rand() % screeen_height;
         pge_draw_point(x1, y1);
         // Update window
         pge_window_show();
