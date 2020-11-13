@@ -7,13 +7,13 @@
 int main() {
     // Create window
     if (!pge_window_create("PGE - Music Example", 640, 480, 1, 60, false)) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Load music
     pge_MusicObj music = pge_music_load("../../../examples/resources/music/gs-16b-2c-44100hz.mp3");
     if (!music) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Game loop
@@ -43,7 +43,7 @@ int main() {
             pge_music_resume(music);
         }
         // Update window
-        pge_window_show();
+        pge_window_draw();
     }
     // Destroy
     pge_music_unload(music);

@@ -33,8 +33,8 @@ struct pge_Window_t {
     // Window
     int width;
     int height;
-    int scale;
-    int fps;
+    int pixel_scale;
+    int max_fps;
     bool is_fullscreen;
     SDL_Window *sdl_window;
     SDL_Renderer *sdl_renderer;
@@ -57,6 +57,6 @@ struct pge_Font_t {
     TTF_Font *sdl_font;
 };
 
-void pge_set_error_message(const char* format, ...);
+void pge_set_error_message(const char *format, ...);
 
 #endif  // PGE_WINDOW_H_

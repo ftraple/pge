@@ -1,5 +1,5 @@
-#include "pixel-game-engine.h"
 #include "defines.h"
+#include "pixel-game-engine.h"
 
 extern pge_Window *window;
 

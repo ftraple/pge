@@ -1,6 +1,6 @@
-#include "primitive-font.h"
-#include "pixel-game-engine.h"
 #include "defines.h"
+#include "pixel-game-engine.h"
+#include "primitive-font.h"
 
 extern pge_Window *window;
 
@@ -20,7 +20,7 @@ void pge_draw_set_current_color(pge_Color color) {
     SDL_SetRenderDrawColor(window->sdl_renderer, color.r, color.g, color.b, color.a);
 }
 
-void pge_draw_point(int x, int y) {
+void pge_draw_pixel(int x, int y) {
     SDL_RenderDrawPoint(window->sdl_renderer, x, y);
 }
 
@@ -28,14 +28,14 @@ void pge_draw_line(int x1, int y1, int x2, int y2) {
     // Horizontal line
     if (y2 == y1) {
         for (int x = x1; x <= x2; ++x) {
-            pge_draw_point(x, y1);
+            pge_draw_pixel(x, y1);
         }
         return;
     }
     // Vertical line
     if (x2 == x1) {
         for (int y = y1; y <= y2; ++y) {
-            pge_draw_point(x1, y);
+            pge_draw_pixel(x1, y);
         }
         return;
     }
@@ -44,7 +44,7 @@ void pge_draw_line(int x1, int y1, int x2, int y2) {
     int dy = abs(y2 - y1), sy = y1 < y2 ? 1 : -1;
     int err = (dx > dy ? dx : -dy) / 2;
     while (x1 != x2 || y1 != y2) {
-        pge_draw_point(x1, y1);
+        pge_draw_pixel(x1, y1);
         int e2 = err;
         if (e2 > -dx) {
             err -= dy;

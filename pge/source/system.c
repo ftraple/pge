@@ -10,7 +10,7 @@ int pge_get_minor_version() {
     return PGE_MINOR_VERSION;
 };
 
-const char *pge_get_error() {
+const char *pge_get_error_message() {
     return m_error_message;
 };
 
@@ -19,6 +19,5 @@ void pge_set_error_message(const char *format, ...) {
     va_list args;
     va_start(args, format);
     vsprintf(m_error_message, format, args);
-    va_end(args);    
+    va_end(args);
 }
- 

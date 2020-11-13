@@ -58,7 +58,7 @@ void pge_text_destroy(pge_TextObj text_obj) {
     free(text_obj);
 }
 
-void pge_text_set(pge_TextObj text_obj, const char* text) {
+void pge_text_set_text(pge_TextObj text_obj, const char* text) {
     if (text_obj == NULL) return;
     render_text(text_obj);
     free(text_obj->text);

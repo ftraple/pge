@@ -2,8 +2,8 @@
 
 pge_Window *window = NULL;
 
-bool pge_window_create(const char *title, int width, int height, int scale, int fps, bool fullscreen) {
-    if (scale <= 0) scale = 1;
+bool pge_window_create(const char *title, int width, int height, int pixel_scale, int max_fps, bool fullscreen) {
+    if (pixel_scale <= 0) pixel_scale = 1;
     pge_set_error_message("");
     // Create the window object
     window = (pge_Window *)malloc(sizeof(struct pge_Window_t));
@@ -13,8 +13,8 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     }
     window->width = width;
     window->height = height;
-    window->scale = scale;
-    window->fps = fps;
+    window->pixel_scale = pixel_scale;
+    window->max_fps = max_fps;
     window->is_fullscreen = fullscreen;
     window->is_running = false;
     window->audio_voulume = SDL_MIX_MAXVOLUME;
@@ -39,7 +39,7 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     // Create the SDL window
     window->sdl_window = SDL_CreateWindow(title,
                                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                          width * scale, height * scale,
+                                          width * pixel_scale, height * pixel_scale,
                                           SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (!window->sdl_window) {
         pge_set_error_message("Fail to create the SDL window: %s", TTF_GetError());
@@ -51,9 +51,9 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
         pge_set_error_message("Fail to create the SDL renderer: %s", TTF_GetError());
         return false;
     }
-    SDL_SetWindowMinimumSize(window->sdl_window, width * scale, height * scale);
+    SDL_SetWindowMinimumSize(window->sdl_window, width * pixel_scale, height * pixel_scale);
     SDL_RenderSetLogicalSize(window->sdl_renderer, width, height);
-    SDL_RenderSetScale(window->sdl_renderer, scale, scale);
+    SDL_RenderSetScale(window->sdl_renderer, pixel_scale, pixel_scale);
 
     // Initialize controllers and keyboard
     for (int i = 0; i < 8; i++) {
@@ -83,13 +83,13 @@ bool pge_window_create(const char *title, int width, int height, int scale, int 
     }
 
     // FPS
-    if (window->fps == 0) {
+    if (window->max_fps == 0) {
         window->frame_step_ms = 0;
     } else {
-        window->frame_step_ms = 1000.0f / window->fps;
+        window->frame_step_ms = 1000.0f / window->max_fps;
     }
     window->frame_start = SDL_GetTicks();
-    window->frame_rate = window->fps;
+    window->frame_rate = window->max_fps;
     window->frame_rate_count = 0;
     window->frame_rate_start = window->frame_start;
     window->is_running = true;
@@ -170,7 +170,7 @@ void pge_window_clear(pge_Color color) {
     SDL_RenderClear(window->sdl_renderer);
 }
 
-void pge_window_show() {
+void pge_window_draw() {
     SDL_RenderPresent(window->sdl_renderer);
     // Frame rate
     float frame_end = SDL_GetTicks();
@@ -182,7 +182,7 @@ void pge_window_show() {
         window->frame_rate_start = frame_end;
     }
     // Wait until next frame
-    if (window->fps > 0) {
+    if (window->max_fps > 0) {
         int sleep = window->frame_step_ms - (frame_end - window->frame_start);
         if (sleep > 0) {
             SDL_Delay(sleep);
@@ -191,7 +191,7 @@ void pge_window_show() {
     }
 }
 
-int pge_window_get_with() {
+int pge_window_get_width() {
     return window->width;
 }
 
@@ -199,12 +199,12 @@ int pge_window_get_height() {
     return window->height;
 }
 
-int pge_window_get_scale() {
-    return window->scale;
+int pge_window_get_pixel_scale() {
+    return window->pixel_scale;
 }
 
 int pge_window_get_fps() {
-    return window->fps;
+    return window->max_fps;
 }
 
 bool pge_window_is_fullscreen() {

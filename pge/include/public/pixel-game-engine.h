@@ -4,7 +4,40 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "color.h"
+typedef struct {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    uint8_t a;
+} pge_Color;
+
+// Color palette
+static const pge_Color PGE_COLOR_LIGHT_GRAY = {200, 200, 200, 255};
+static const pge_Color PGE_COLOR_GRAY = {130, 130, 130, 255};
+static const pge_Color PGE_COLOR_DARK_GRAY = {80, 80, 80, 255};
+static const pge_Color PGE_COLOR_YELLOW = {253, 249, 0, 255};
+static const pge_Color PGE_COLOR_GOLD = {255, 203, 0, 255};
+static const pge_Color PGE_COLOR_ORANGE = {255, 161, 0, 255};
+static const pge_Color PGE_COLOR_PINK = {255, 109, 194, 255};
+static const pge_Color PGE_COLOR_RED = {230, 41, 55, 255};
+static const pge_Color PGE_COLOR_MAROON = {190, 33, 55, 255};
+static const pge_Color PGE_COLOR_GREEN = {0, 228, 48, 255};
+static const pge_Color PGE_COLOR_LIME = {0, 158, 47, 255};
+static const pge_Color PGE_COLOR_DARK_GREEN = {0, 117, 44, 255};
+static const pge_Color PGE_COLOR_SKY_BLUE = {102, 191, 255, 255};
+static const pge_Color PGE_COLOR_BLUE = {0, 121, 241, 255};
+static const pge_Color PGE_COLOR_DARK_BLUE = {0, 82, 172, 255};
+static const pge_Color PGE_COLOR_PURPLE = {200, 122, 255, 255};
+static const pge_Color PGE_COLOR_VIOLET = {135, 60, 190, 255};
+static const pge_Color PGE_COLOR_DARK_PURPLE = {112, 31, 126, 255};
+static const pge_Color PGE_COLOR_BEIGE = {211, 176, 131, 255};
+static const pge_Color PGE_COLOR_BROWN = {127, 106, 79, 255};
+static const pge_Color PGE_COLOR_DARK_BROWN = {76, 63, 47, 255};
+static const pge_Color PGE_COLOR_WHITE = {255, 255, 255, 255};
+static const pge_Color PGE_COLOR_BLACK = {0, 0, 0, 255};
+static const pge_Color PGE_COLOR_TRANPARENT = {0, 0, 0, 0};
+static const pge_Color PGE_COLOR_MAGENTA = {255, 0, 255, 255};
+static const pge_Color PGE_COLOR_RAY_WHITE = {245, 245, 245, 255};
 
 typedef struct pge_Sound_t *pge_SoundObj;
 typedef struct pge_Music_t *pge_MusicObj;
@@ -36,19 +69,19 @@ typedef enum {
 //--------------------------------------------------------------------------------
 int pge_get_major_version();
 int pge_get_minor_version();
-const char *pge_get_error();
+const char *pge_get_error_message();
 
 // Window
 //--------------------------------------------------------------------------------
-bool pge_window_create(const char *title, int width, int height, int scale, int fps, bool fullscreen);
+bool pge_window_create(const char *title, int width, int height, int pixel_scale, int max_fps, bool fullscreen);
 void pge_window_destroy();
 bool pge_window_is_running();
 void pge_window_clear(pge_Color color);
-void pge_window_show();
-int pge_window_get_with();
+void pge_window_draw();
+int pge_window_get_width();
 int pge_window_get_height();
-int pge_window_get_scale();
-int pge_window_get_fps();
+int pge_window_get_pixel_scale();
+int pge_window_get_max_fps();
 bool pge_window_is_fullscreen();
 int pge_window_get_frame_rate();
 
@@ -75,7 +108,7 @@ bool pge_controller_button(unsigned int controller_number, pge_ControllerButton 
 // Primitives
 //--------------------------------------------------------------------------------
 void pge_draw_set_current_color(pge_Color color);
-void pge_draw_point(int x, int y);
+void pge_draw_pixel(int x, int y);
 void pge_draw_line(int x1, int y1, int x2, int y2);
 void pge_draw_rect(int x, int y, int width, int height);
 void pge_draw_rect_fill(int x, int y, int width, int height);
@@ -92,7 +125,7 @@ void pge_font_unload(pge_FontObj font_obj);
 //--------------------------------------------------------------------------------
 pge_TextObj pge_text_create(pge_FontObj font_obj, const char *text, pge_Color color);
 void pge_text_destroy(pge_TextObj text_obj);
-void pge_text_set(pge_TextObj text_obj, const char *text);
+void pge_text_set_text(pge_TextObj text_obj, const char *text);
 void pge_text_set_color(pge_TextObj text_obj, pge_Color color);
 int pge_text_get_width(pge_TextObj text_obj);
 int pge_text_get_height(pge_TextObj text_obj);

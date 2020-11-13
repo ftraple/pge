@@ -7,7 +7,7 @@ PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 
 set(SOURCE_FILES
     source/controller.c
-    source/core.c
+    source/system.c
     source/font.c
     source/image.c
     source/music.c

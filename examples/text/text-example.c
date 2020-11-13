@@ -10,13 +10,13 @@ int main() {
     int pixel_scale = 1;
     int fps = 60;
     if (!pge_window_create("PGE - Text Example", screen_width, screen_height, pixel_scale, fps, false)) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Load a font
     pge_FontObj font = pge_font_load("../../../examples/resources/font/OpenSans-Bold.ttf", 44);
     if (!font) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Create a text
@@ -36,7 +36,7 @@ int main() {
         pge_draw_set_current_color(PGE_COLOR_BLUE);
         pge_draw_rect(text_crop_x, 200, 160, text_crop_height);
         // Update window
-        pge_window_show();
+        pge_window_draw();
     }
     // Destroy
     pge_text_destroy(text);

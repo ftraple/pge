@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
     int screen_width = 160;
     int screen_height = 120;
     if (!pge_window_create("PGE - Controller Example", screen_width, screen_height, 4, 60, false)) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Game loop
@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
         pge_draw_set_current_color(PGE_COLOR_PINK);
         pge_draw_circle(x, y, radius);
 
-        pge_window_show();
+        pge_window_draw();
     }
     // Destroy
     pge_window_destroy();

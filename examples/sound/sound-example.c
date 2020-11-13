@@ -7,13 +7,13 @@
 int main() {
     // Create window
     if (!pge_window_create("PGE - Sound Example", 640, 480, 1, 60, false)) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Load sound
     pge_SoundObj music = pge_sound_load("../../../examples/resources/sound/power_pellet.wav");
     if (!music) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Game loop
@@ -43,7 +43,7 @@ int main() {
             pge_sound_resume(music);
         }
         // Update window
-        pge_window_show();
+        pge_window_draw();
     }
     // Destroy
     pge_sound_unload(music);

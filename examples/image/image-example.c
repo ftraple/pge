@@ -12,16 +12,15 @@ int main() {
     int fps = 60;
     bool fullscreen = false;
     if (!pge_window_create("PGE - Text Example", screen_width, screen_height, pixel_scale, fps, fullscreen)) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Load a font
     pge_ImageObj image = pge_image_load("../../../examples/resources/image/test.png");
     if (!image) {
-        printf("%s\n", pge_get_error());
+        printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
-
     // Game loop
     while (pge_window_is_running()) {
         pge_window_clear(PGE_COLOR_BLACK);
@@ -29,7 +28,7 @@ int main() {
         pge_image_draw(image, 10, 10);
         pge_image_draw_crop(image, 450, 100, 160, 160, 120, 120);
         // Update window
-        pge_window_show();
+        pge_window_draw();
     }
     // Destroy
     pge_image_unload(image);
