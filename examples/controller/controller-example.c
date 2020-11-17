@@ -23,26 +23,31 @@ int main(int argc, char **argv) {
         pge_window_clear(PGE_COLOR_BLACK);
 
         if (pge_controller_amount() == 0) {
-            if (pge_controller_dpad_left(0)) {
-                x--;
-            } else if (pge_controller_dpad_right(0)) {
-                x++;
-            }
-            if (pge_controller_dpad_up(0)) {
+            // Dpad
+            if (pge_controller_button(0, PGE_CONTROLLER_BUTTON_DPAD_UP)) {
                 y--;
-            } else if (pge_controller_dpad_down(0)) {
+            } else if (pge_controller_button(0, PGE_CONTROLLER_BUTTON_DPAD_DOWN)) {
                 y++;
+            }
+            if (pge_controller_button(0, PGE_CONTROLLER_BUTTON_DPAD_LEFT)) {
+                x--;
+            } else if (pge_controller_button(0, PGE_CONTROLLER_BUTTON_DPAD_RIGHT)) {
+                x++;
             }
         } else {
-            if (pge_controller_left_axis_x(0) < 0) {
+            // Left Axis
+            if (pge_controller_get_axis(0, PGE_CONTROLLER_AXIS_LEFT_X) < 0) {
                 x--;
-            } else if (pge_controller_left_axis_x(0) > 0) {
+            } else if (pge_controller_get_axis(0, PGE_CONTROLLER_AXIS_LEFT_X) > 0) {
                 x++;
             }
-            if (pge_controller_left_axis_y(0) < 0) {
+            if (pge_controller_get_axis(0, PGE_CONTROLLER_AXIS_LEFT_Y) < 0) {
                 y--;
-            } else if (pge_controller_left_axis_y(0) > 0) {
+            } else if (pge_controller_get_axis(0, PGE_CONTROLLER_AXIS_LEFT_Y) > 0) {
                 y++;
+            }
+            if (pge_controller_get_axis(0, PGE_CONTROLLER_AXIS_TRIGGER_LEFT) > 0) {
+                printf("PGE_CONTROLLER_AXIS_TRIGGER_LEFT\n");
             }
         }
 
@@ -56,7 +61,7 @@ int main(int argc, char **argv) {
             printf("PGE_CONTROLLER_BUTTON_X\n");
         };
         if (pge_controller_button(0, PGE_CONTROLLER_BUTTON_Y)) {
-            printf("PGE_CONTROLLER_BUTTON_Y\n");
+            printf("PGE_CONTROLLER_BUTTON_Y \n");
         };
         if (pge_controller_button(0, PGE_CONTROLLER_BUTTON_BACK)) {
             printf("PGE_CONTROLLER_BUTTON_BACK\n");

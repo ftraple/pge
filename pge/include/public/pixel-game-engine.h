@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define PGE_CONTROLLER_MAX 8
+
 typedef struct {
     uint8_t r;
     uint8_t g;
@@ -46,6 +48,16 @@ typedef struct pge_Text_t *pge_TextObj;
 typedef struct pge_Image_t *pge_ImageObj;
 
 typedef enum {
+    PGE_CONTROLLER_AXIS_LEFT_X,
+    PGE_CONTROLLER_AXIS_LEFT_Y,
+    PGE_CONTROLLER_AXIS_RIGHT_X,
+    PGE_CONTROLLER_AXIS_RIGHT_Y,
+    PGE_CONTROLLER_AXIS_TRIGGER_LEFT,
+    PGE_CONTROLLER_AXIS_TRIGGER_RIGHT,
+    PGE_CONTROLLER_AXIS_MAX
+} pge_ControllerAxis;
+
+typedef enum {
     PGE_CONTROLLER_BUTTON_A,
     PGE_CONTROLLER_BUTTON_B,
     PGE_CONTROLLER_BUTTON_X,
@@ -56,7 +68,12 @@ typedef enum {
     PGE_CONTROLLER_BUTTON_LEFTSTICK,
     PGE_CONTROLLER_BUTTON_RIGHTSTICK,
     PGE_CONTROLLER_BUTTON_LEFTSHOULDER,
-    PGE_CONTROLLER_BUTTON_RIGHTSHOULDER
+    PGE_CONTROLLER_BUTTON_RIGHTSHOULDER,
+    PGE_CONTROLLER_BUTTON_DPAD_UP,
+    PGE_CONTROLLER_BUTTON_DPAD_DOWN,
+    PGE_CONTROLLER_BUTTON_DPAD_LEFT,
+    PGE_CONTROLLER_BUTTON_DPAD_RIGHT,
+    PGE_CONTROLLER_BUTTON_MAX
 } pge_ControllerButton;
 
 typedef enum {
@@ -91,18 +108,7 @@ int pge_controller_amount();
 bool pge_controller_is_valid(unsigned int controller_number);
 const char *pge_controller_get_mapping(unsigned int controller_number);
 int pge_controller_add_mapping(const char *mapping);
-// Dpad
-bool pge_controller_dpad_up(unsigned int controller_number);
-bool pge_controller_dpad_down(unsigned int controller_number);
-bool pge_controller_dpad_left(unsigned int controller_number);
-bool pge_controller_dpad_right(unsigned int controller_number);
-// Left Axis
-int pge_controller_left_axis_x(unsigned int controller_number);
-int pge_controller_left_axis_y(unsigned int controller_number);
-// Right Axis
-int pge_controller_right_axis_x(unsigned int controller_number);
-int pge_controller_right_axis_y(unsigned int controller_number);
-// Buttons
+int pge_controller_get_axis(unsigned int controller_number, pge_ControllerAxis controller_axis);
 bool pge_controller_button(unsigned int controller_number, pge_ControllerButton button);
 
 // Primitives

@@ -21,72 +21,13 @@ int pge_controller_add_mapping(const char *mapping) {
     return SDL_GameControllerAddMapping(mapping);
 }
 
-bool pge_controller_dpad_up(unsigned int controller_number) {
+int pge_controller_get_axis(unsigned int controller_number, pge_ControllerAxis controller_axis) {
     if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.dpad_up;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetButton(window->controller[controller_number].sdl_game_controller,
-                                       SDL_CONTROLLER_BUTTON_DPAD_UP);
-}
-
-bool pge_controller_dpad_down(unsigned int controller_number) {
-    if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.dpad_down;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetButton(window->controller[controller_number].sdl_game_controller,
-                                       SDL_CONTROLLER_BUTTON_DPAD_DOWN);
-}
-
-bool pge_controller_dpad_left(unsigned int controller_number) {
-    if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.dpad_left;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetButton(window->controller[controller_number].sdl_game_controller,
-                                       SDL_CONTROLLER_BUTTON_DPAD_LEFT);
-}
-bool pge_controller_dpad_right(unsigned int controller_number) {
-    if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.dpad_right;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetButton(window->controller[controller_number].sdl_game_controller,
-                                       SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-}
-
-int pge_controller_left_axis_x(unsigned int controller_number) {
-    if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.left_axis_x;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetAxis(window->controller[controller_number].sdl_game_controller,
-                                     SDL_CONTROLLER_AXIS_LEFTX);
-}
-
-int pge_controller_left_axis_y(unsigned int controller_number) {
-    if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.left_axis_y;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetAxis(window->controller[controller_number].sdl_game_controller,
-                                     SDL_CONTROLLER_AXIS_LEFTY);
-}
-
-int pge_controller_right_axis_x(unsigned int controller_number) {
-    if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.right_axis_x;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetAxis(window->controller[controller_number].sdl_game_controller,
-                                     SDL_CONTROLLER_AXIS_RIGHTX);
-}
-
-int pge_controller_right_axis_y(unsigned int controller_number) {
-    if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.right_axis_y;
-    if (!window->controller[controller_number].is_valid) return false;
-    return SDL_GameControllerGetAxis(window->controller[controller_number].sdl_game_controller,
-                                     SDL_CONTROLLER_AXIS_RIGHTY);
+    return SDL_GameControllerGetAxis(window->controller[controller_number].sdl_game_controller, controller_axis);
 }
 
 bool pge_controller_button(unsigned int controller_number, pge_ControllerButton button) {
     if (controller_number >= 8) return false;
-    if (window->controller_amount == 0) return window->keyboard.button[button];
-    if (!window->controller[controller_number].is_valid) return false;
+    if (!window->controller[controller_number].is_valid) return window->controller_button[button];
     return SDL_GameControllerGetButton(window->controller[controller_number].sdl_game_controller, button);
 }
