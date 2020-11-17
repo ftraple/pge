@@ -106,6 +106,7 @@ bool pge_window_is_running() {
         if (window->controller_amount == 0) {
             // Buttons
             if (sdl_event.type == SDL_KEYDOWN) {
+                if (sdl_event.key.keysym.sym == SDLK_x) window->controller_button[PGE_CONTROLLER_BUTTON_A] = true;
                 if (sdl_event.key.keysym.sym == SDLK_x) window->controller_button[PGE_CONTROLLER_BUTTON_B] = true;
                 if (sdl_event.key.keysym.sym == SDLK_c) window->controller_button[PGE_CONTROLLER_BUTTON_X] = true;
                 if (sdl_event.key.keysym.sym == SDLK_v) window->controller_button[PGE_CONTROLLER_BUTTON_Y] = true;
@@ -122,7 +123,7 @@ bool pge_window_is_running() {
                 if (sdl_event.key.keysym.sym == SDLK_RIGHT) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_RIGHT] = true;
             } else if (sdl_event.type == SDL_KEYUP) {
                 // Buttons
-                if (sdl_event.key.keysym.sym == SDLK_x) window->controller_button[PGE_CONTROLLER_BUTTON_B] = false;
+                if (sdl_event.key.keysym.sym == SDLK_x) window->controller_button[PGE_CONTROLLER_BUTTON_A] = false;
                 if (sdl_event.key.keysym.sym == SDLK_c) window->controller_button[PGE_CONTROLLER_BUTTON_X] = false;
                 if (sdl_event.key.keysym.sym == SDLK_v) window->controller_button[PGE_CONTROLLER_BUTTON_Y] = false;
                 if (sdl_event.key.keysym.sym == SDLK_1) window->controller_button[PGE_CONTROLLER_BUTTON_BACK] = false;
