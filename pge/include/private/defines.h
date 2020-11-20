@@ -12,7 +12,8 @@
 #include "pixel-game-engine.h"
 
 typedef struct {
-    bool is_valid;
+    bool is_active;
+    int id;
     SDL_GameController *sdl_game_controller;
 } Controller;
 
@@ -33,8 +34,6 @@ struct pge_Window_t {
     int frame_rate_count;
     Uint32 frame_rate_start;
     // Controllers
-    int controller_amount;
-    bool controller_button[PGE_CONTROLLER_BUTTON_MAX];
     Controller controller[PGE_CONTROLLER_MAX];
     // Audio
     int audio_voulume;

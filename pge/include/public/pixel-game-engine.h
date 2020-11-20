@@ -48,6 +48,25 @@ typedef struct pge_Text_t *pge_TextObj;
 typedef struct pge_Image_t *pge_ImageObj;
 
 typedef enum {
+    PGE_CONTROLLER_BUTTON_A,
+    PGE_CONTROLLER_BUTTON_B,
+    PGE_CONTROLLER_BUTTON_X,
+    PGE_CONTROLLER_BUTTON_Y,
+    PGE_CONTROLLER_BUTTON_BACK,
+    PGE_CONTROLLER_BUTTON_GUIDE,
+    PGE_CONTROLLER_BUTTON_START,
+    PGE_CONTROLLER_BUTTON_LEFT_STICK,
+    PGE_CONTROLLER_BUTTON_RIGHT_STICK,
+    PGE_CONTROLLER_BUTTON_LEFT_SHOULDER,
+    PGE_CONTROLLER_BUTTON_RIGHT_SHOULDER,
+    PGE_CONTROLLER_BUTTON_DPAD_UP,
+    PGE_CONTROLLER_BUTTON_DPAD_DOWN,
+    PGE_CONTROLLER_BUTTON_DPAD_LEFT,
+    PGE_CONTROLLER_BUTTON_DPAD_RIGHT,
+    PGE_CONTROLLER_BUTTON_MAX
+} pge_ControllerButton;
+
+typedef enum {
     PGE_CONTROLLER_AXIS_LEFT_X,
     PGE_CONTROLLER_AXIS_LEFT_Y,
     PGE_CONTROLLER_AXIS_RIGHT_X,
@@ -58,23 +77,39 @@ typedef enum {
 } pge_ControllerAxis;
 
 typedef enum {
-    PGE_CONTROLLER_BUTTON_A,
-    PGE_CONTROLLER_BUTTON_B,
-    PGE_CONTROLLER_BUTTON_X,
-    PGE_CONTROLLER_BUTTON_Y,
-    PGE_CONTROLLER_BUTTON_BACK,
-    PGE_CONTROLLER_BUTTON_GUIDE,
-    PGE_CONTROLLER_BUTTON_START,
-    PGE_CONTROLLER_BUTTON_LEFTSTICK,
-    PGE_CONTROLLER_BUTTON_RIGHTSTICK,
-    PGE_CONTROLLER_BUTTON_LEFTSHOULDER,
-    PGE_CONTROLLER_BUTTON_RIGHTSHOULDER,
-    PGE_CONTROLLER_BUTTON_DPAD_UP,
-    PGE_CONTROLLER_BUTTON_DPAD_DOWN,
-    PGE_CONTROLLER_BUTTON_DPAD_LEFT,
-    PGE_CONTROLLER_BUTTON_DPAD_RIGHT,
-    PGE_CONTROLLER_BUTTON_MAX
-} pge_ControllerButton;
+    PGE_EVENT_CONTROLLER_DEVICE_ADDED,
+    PGE_EVENT_CONTROLLER_DEVICE_REMOVED,
+    PGE_EVENT_CONTROLLER_AXIS_MOTION,
+    PGE_EVENT_CONTROLLER_BUTTON,
+} pge_EventType;
+
+typedef struct {
+    int id;
+    uint32_t timestamp;
+} pge_ControllerDeviceEvent;
+
+typedef struct {
+    int id;
+    uint32_t timestamp;
+    pge_ControllerButton button;
+    bool is_pressed;
+} pge_ControllerButtonEvent;
+
+typedef struct {
+    int id;
+    uint32_t timestamp;
+    pge_ControllerAxis axis;
+    int value;
+    bool is_pressed;
+} pge_ControllerAxisEvent;
+
+typedef struct {
+    pge_EventType type;
+    pge_ControllerDeviceEvent controller_device;
+    pge_ControllerButtonEvent controller_button;
+    pge_ControllerAxisEvent controller_axis;
+
+} pge_Event;
 
 typedef enum {
     PGE_AUDIO_STATUS_STOPED,
@@ -102,14 +137,18 @@ int pge_window_get_max_fps();
 bool pge_window_is_fullscreen();
 int pge_window_get_frame_rate();
 
+// Events
+//--------------------------------------------------------------------------------
+bool pge_event_pool(pge_Event *event);
+
 // Controllers
 //--------------------------------------------------------------------------------
 int pge_controller_amount();
-bool pge_controller_is_valid(unsigned int controller_number);
-const char *pge_controller_get_mapping(unsigned int controller_number);
+bool pge_controller_is_active(int id);
+const char *pge_controller_get_mapping(int id);
 int pge_controller_add_mapping(const char *mapping);
-int pge_controller_get_axis(unsigned int controller_number, pge_ControllerAxis controller_axis);
-bool pge_controller_button(unsigned int controller_number, pge_ControllerButton button);
+int pge_controller_get_axis(int id, pge_ControllerAxis controller_axis);
+bool pge_controller_button(int id, pge_ControllerButton button);
 
 // Primitives
 //--------------------------------------------------------------------------------

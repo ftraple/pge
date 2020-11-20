@@ -55,23 +55,9 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
     SDL_RenderSetLogicalSize(window->sdl_renderer, width, height);
     SDL_RenderSetScale(window->sdl_renderer, pixel_scale, pixel_scale);
 
-    // Initialize controllers and keyboard
+    // Initialize controllers
     for (int i = 0; i < 8; i++) {
-        window->controller[i].is_valid = false;
-    }
-    window->controller_amount = SDL_NumJoysticks();
-    for (int i = 0; i < window->controller_amount; i++) {
-        if (SDL_IsGameController(i)) {
-            window->controller[i].sdl_game_controller = SDL_GameControllerOpen(i);
-            if (!window->controller[i].sdl_game_controller) {
-                pge_set_error_message("Could not open game controller [%i]: %s", i, SDL_GetError());
-            } else {
-                window->controller[i].is_valid = true;
-            }
-        }
-    }
-    for (int i = 0; i < PGE_CONTROLLER_BUTTON_MAX; i++) {
-        window->controller_button[i] = false;
+        window->controller[i].is_active = false;
     }
 
     // FPS
@@ -97,49 +83,6 @@ void pge_window_destroy() {
 }
 
 bool pge_window_is_running() {
-    SDL_Event sdl_event;
-    while (SDL_PollEvent(&sdl_event)) {
-        if (sdl_event.type == SDL_QUIT) {
-            window->is_running = false;
-            break;
-        }
-        if (window->controller_amount == 0) {
-            // Buttons
-            if (sdl_event.type == SDL_KEYDOWN) {
-                if (sdl_event.key.keysym.sym == SDLK_z) window->controller_button[PGE_CONTROLLER_BUTTON_A] = true;
-                if (sdl_event.key.keysym.sym == SDLK_x) window->controller_button[PGE_CONTROLLER_BUTTON_B] = true;
-                if (sdl_event.key.keysym.sym == SDLK_c) window->controller_button[PGE_CONTROLLER_BUTTON_X] = true;
-                if (sdl_event.key.keysym.sym == SDLK_v) window->controller_button[PGE_CONTROLLER_BUTTON_Y] = true;
-                if (sdl_event.key.keysym.sym == SDLK_1) window->controller_button[PGE_CONTROLLER_BUTTON_BACK] = true;
-                if (sdl_event.key.keysym.sym == SDLK_2) window->controller_button[PGE_CONTROLLER_BUTTON_GUIDE] = true;
-                if (sdl_event.key.keysym.sym == SDLK_3) window->controller_button[PGE_CONTROLLER_BUTTON_START] = true;
-                if (sdl_event.key.keysym.sym == SDLK_a) window->controller_button[PGE_CONTROLLER_BUTTON_LEFTSTICK] = true;
-                if (sdl_event.key.keysym.sym == SDLK_s) window->controller_button[PGE_CONTROLLER_BUTTON_RIGHTSTICK] = true;
-                if (sdl_event.key.keysym.sym == SDLK_d) window->controller_button[PGE_CONTROLLER_BUTTON_LEFTSHOULDER] = true;
-                if (sdl_event.key.keysym.sym == SDLK_f) window->controller_button[PGE_CONTROLLER_BUTTON_RIGHTSHOULDER] = true;
-                if (sdl_event.key.keysym.sym == SDLK_UP) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_UP] = true;
-                if (sdl_event.key.keysym.sym == SDLK_DOWN) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_DOWN] = true;
-                if (sdl_event.key.keysym.sym == SDLK_LEFT) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_LEFT] = true;
-                if (sdl_event.key.keysym.sym == SDLK_RIGHT) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_RIGHT] = true;
-            } else if (sdl_event.type == SDL_KEYUP) {
-                // Buttons
-                if (sdl_event.key.keysym.sym == SDLK_z) window->controller_button[PGE_CONTROLLER_BUTTON_A] = false;
-                if (sdl_event.key.keysym.sym == SDLK_c) window->controller_button[PGE_CONTROLLER_BUTTON_X] = false;
-                if (sdl_event.key.keysym.sym == SDLK_v) window->controller_button[PGE_CONTROLLER_BUTTON_Y] = false;
-                if (sdl_event.key.keysym.sym == SDLK_1) window->controller_button[PGE_CONTROLLER_BUTTON_BACK] = false;
-                if (sdl_event.key.keysym.sym == SDLK_2) window->controller_button[PGE_CONTROLLER_BUTTON_GUIDE] = false;
-                if (sdl_event.key.keysym.sym == SDLK_3) window->controller_button[PGE_CONTROLLER_BUTTON_START] = false;
-                if (sdl_event.key.keysym.sym == SDLK_a) window->controller_button[PGE_CONTROLLER_BUTTON_LEFTSTICK] = false;
-                if (sdl_event.key.keysym.sym == SDLK_s) window->controller_button[PGE_CONTROLLER_BUTTON_RIGHTSTICK] = false;
-                if (sdl_event.key.keysym.sym == SDLK_d) window->controller_button[PGE_CONTROLLER_BUTTON_LEFTSHOULDER] = false;
-                if (sdl_event.key.keysym.sym == SDLK_f) window->controller_button[PGE_CONTROLLER_BUTTON_RIGHTSHOULDER] = false;
-                if (sdl_event.key.keysym.sym == SDLK_UP) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_UP] = false;
-                if (sdl_event.key.keysym.sym == SDLK_DOWN) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_DOWN] = false;
-                if (sdl_event.key.keysym.sym == SDLK_LEFT) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_LEFT] = false;
-                if (sdl_event.key.keysym.sym == SDLK_RIGHT) window->controller_button[PGE_CONTROLLER_BUTTON_DPAD_RIGHT] = false;
-            }
-        }
-    }
     return window->is_running;
 }
 
