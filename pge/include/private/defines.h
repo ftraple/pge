@@ -30,6 +30,7 @@ struct pge_Window_t {
     bool is_running;
     float frame_step_ms;
     float frame_start;
+    int sleep;
     int frame_rate;
     int frame_rate_count;
     Uint32 frame_rate_start;

@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
     while (pge_window_is_running()) {
         pge_window_clear(PGE_COLOR_BLACK);
         pge_Event event;
-        while (pge_event_pool(&event)) {
+        while (pge_event_wait(&event)) {
             switch (event.type) {
                 case PGE_EVENT_CONTROLLER_DEVICE_ADDED:
                     printf("Controller [%d] Added\n", event.controller_device.id);

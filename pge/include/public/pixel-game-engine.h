@@ -139,7 +139,7 @@ int pge_window_get_frame_rate();
 
 // Events
 //--------------------------------------------------------------------------------
-bool pge_event_pool(pge_Event *event);
+bool pge_event_wait(pge_Event *event);
 
 // Controllers
 //--------------------------------------------------------------------------------

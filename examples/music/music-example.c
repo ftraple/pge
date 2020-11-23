@@ -21,7 +21,7 @@ int main() {
     while (pge_window_is_running()) {
         // Capture events
         pge_Event event;
-        while (pge_event_pool(&event)) {
+        while (pge_event_wait(&event)) {
             if (event.type == PGE_EVENT_CONTROLLER_DEVICE_ADDED) {
                 controller_id = event.controller_device.id;
             }

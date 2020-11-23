@@ -102,14 +102,6 @@ void pge_window_draw() {
         window->frame_rate_count = 0;
         window->frame_rate_start = frame_end;
     }
-    // Wait until next frame
-    if (window->max_fps > 0) {
-        int sleep = window->frame_step_ms - (frame_end - window->frame_start);
-        if (sleep > 0) {
-            SDL_Delay(sleep);
-        }
-        window->frame_start += window->frame_step_ms;
-    }
 }
 
 int pge_window_get_width() {
