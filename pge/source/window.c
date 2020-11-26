@@ -116,6 +116,10 @@ int pge_window_get_pixel_scale() {
     return window->pixel_scale;
 }
 
+void pge_window_set_max_fps(int max_fps) {
+    window->max_fps = max_fps;
+}
+
 int pge_window_get_fps() {
     return window->max_fps;
 }

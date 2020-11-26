@@ -133,6 +133,7 @@ void pge_window_draw();
 int pge_window_get_width();
 int pge_window_get_height();
 int pge_window_get_pixel_scale();
+void pge_window_set_max_fps(int max_fps);
 int pge_window_get_max_fps();
 bool pge_window_is_fullscreen();
 int pge_window_get_frame_rate();
