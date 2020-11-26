@@ -31,6 +31,7 @@ bool pge_event_wait(pge_Event *event) {
             case SDL_CONTROLLERDEVICEADDED: {
                 int controller_index = sdl_event.cdevice.which;
                 if (controller_index < PGE_CONTROLLER_MAX &&
+                    window->controller[controller_index].is_active == false &&
                     SDL_IsGameController(controller_index)) {
                     window->controller[controller_index].sdl_game_controller = SDL_GameControllerOpen(controller_index);
                     if (!window->controller[controller_index].sdl_game_controller) {
@@ -49,7 +50,7 @@ bool pge_event_wait(pge_Event *event) {
             case SDL_CONTROLLERDEVICEREMOVED: {
                 int id = sdl_event.cdevice.which;
                 for (int i = 0; i < PGE_CONTROLLER_MAX; i++) {
-                    if (window->controller[i].id == id) {
+                    if (window->controller[i].id == id && window->controller[i].is_active == true) {
                         SDL_GameControllerClose(window->controller[i].sdl_game_controller);
                         window->controller[i].is_active = false;
                         event->type = PGE_EVENT_CONTROLLER_DEVICE_REMOVED;
@@ -66,6 +67,7 @@ bool pge_event_wait(pge_Event *event) {
                 event->controller_button.timestamp = sdl_event.cbutton.timestamp;
                 event->controller_button.button = sdl_event.cbutton.button;
                 event->controller_button.is_pressed = (sdl_event.cbutton.state == 0) ? false : true;
+                printf("PGE_EVENT_CONTROLLER_BUTTON %d  %d\n", event->controller_button.id, event->controller_button.button);
                 return true;
             }
             case SDL_CONTROLLERAXISMOTION: {
