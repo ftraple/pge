@@ -113,7 +113,7 @@ int pge_window_get_pixel_scale() {
 
 void pge_window_set_max_fps(int max_fps) {
     window->max_fps = max_fps;
-    if (window->max_fps == 0) {
+    if (window->max_fps <= 0) {
         window->frame_step_ms = 0;
     } else {
         window->frame_step_ms = 1000.0f / window->max_fps;

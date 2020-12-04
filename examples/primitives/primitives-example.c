@@ -8,14 +8,18 @@ int main(int argc, char **argv) {
     // Create
     int screen_width = 160;
     int screen_height = 120;
-    if (!pge_window_create("PGE- Primitives Example", screen_width, screen_height, 4, 60, false)) {
+    if (!pge_window_create("PGE- Primitives Example", screen_width, screen_height, 4, 0, false)) {
         printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
     // Game loop
     while (pge_window_is_running()) {
-        pge_window_clear(PGE_COLOR_BLACK);
+        // Get events
+        pge_Event event;
+        while (pge_event_wait(&event)) {
+        }
         // Repeat 100 times per frame
+        pge_window_clear(PGE_COLOR_BLACK);
         for (int i = 0; i < 100; i++) {
             pge_Color color = {rand() % 255, rand() % 255, rand() % 255, 255};
             pge_draw_set_current_color(color);
@@ -47,12 +51,10 @@ int main(int argc, char **argv) {
                     pge_draw_circle_fill(x1, y1, radius);
                     break;
             }
-            // Show frame rate
-            char text_frame_rate[100];
-            snprintf(text_frame_rate, sizeof(text_frame_rate), "Frame %d\n", pge_window_get_frame_rate());
-            pge_draw_set_current_color(PGE_COLOR_WHITE);
-            pge_draw_text(80, 60, 2, PGE_ALIGN_CENTER_CENTER, text_frame_rate);
         }
+        // Show frame rate
+        pge_draw_set_current_color(PGE_COLOR_WHITE);
+        pge_draw_text(80, 60, 2, PGE_ALIGN_CENTER_CENTER, "Frame %d\n", pge_window_get_frame_rate());
 
         pge_window_draw();
     }

@@ -1,6 +1,6 @@
 #include "defines.h"
 
-static char m_error_message[512];
+static char m_error_message[1024];
 
 int pge_get_major_version() {
     return PGE_MAJOR_VERSION;
@@ -18,6 +18,6 @@ void pge_set_error_message(const char *format, ...) {
     memset(m_error_message, 0, sizeof(m_error_message));
     va_list args;
     va_start(args, format);
-    vsprintf(m_error_message, format, args);
+    vsnprintf(m_error_message, sizeof(m_error_message), format, args);
     va_end(args);
 }

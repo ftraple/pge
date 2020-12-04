@@ -20,6 +20,10 @@ int main() {
     // Game loop - randomly draw pixels
     pge_window_clear(PGE_COLOR_BLACK);
     while (pge_window_is_running()) {
+        // Capture events
+        pge_Event event;
+        while (pge_event_wait(&event)) {
+        }
         // Set random color
         pge_Color color = {rand() % 255, rand() % 255, rand() % 255, 255};
         pge_draw_set_current_color(color);

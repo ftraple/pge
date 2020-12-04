@@ -6,7 +6,10 @@
 
 int main() {
     // Create window
-    if (!pge_window_create("PGE - Music Example", 640, 480, 1, 60, false)) {
+    int screen_scale = 2;
+    int screen_width = 640 / screen_scale;
+    int screen_height = 480 / screen_scale;
+    if (!pge_window_create("PGE - Music Example", screen_width, screen_height, screen_scale, 60, false)) {
         printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
@@ -29,7 +32,7 @@ int main() {
         // Select Music
         pge_window_clear(PGE_COLOR_BLACK);
         pge_draw_set_current_color(PGE_COLOR_BROWN);
-        pge_draw_text(10, 10, 2, PGE_ALIGN_LEFT_TOP, "Press Button:\nA = play   B = stop\nX = pause  Y = resume");
+        pge_draw_text(screen_width / 2, screen_height / 2, 2, PGE_ALIGN_CENTER_CENTER, "Press Button:\nA = play   B = stop\nX = pause  Y = resume");
         if (pge_controller_is_active(controller_id)) {
             if (pge_controller_button(controller_id, PGE_CONTROLLER_BUTTON_A) &&
                 pge_music_status(music) == PGE_AUDIO_STATUS_STOPED) {

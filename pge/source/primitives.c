@@ -138,15 +138,21 @@ static void draw_char(int x, int y, int scale, char c) {
     }
 }
 
-void pge_draw_text(int x, int y, int scale, pge_Align align, const char *text) {
+void pge_draw_text(int x, int y, int scale, pge_Align align, const char *format, ...) {
     if (scale <= 0) scale = 1;
+    // Extract the real text
+    char text[4096];
+    va_list args;
+    va_start(args, format);
+    int rc = vsnprintf(text, sizeof(text), format, args);
+    va_end(args);
+    if (rc <= 0) return;
+    // Calculate text width and height first
     int text_size = strlen(text);
     int start_x = x;
     int start_y = y;
-    // Calculate text width and height
-    //int text_width = ((text_size - 1) * ((font.char_width * scale) + font.char_space)) - +font.char_space;
     int text_width = 0;
-    int text_height = 0;
+    int text_height = font.char_height * scale;
     int cur_x = 0;
     for (int i = 0; i < text_size; i++) {
         if (text[i] == '\n') {
@@ -159,7 +165,9 @@ void pge_draw_text(int x, int y, int scale, pge_Align align, const char *text) {
             cur_x += (font.char_width * scale) + font.char_space;
         }
     }
+    printf("text_height = %d\n", text_height);
 
+    // Calculate the alignment
     switch (align) {
         case PGE_ALIGN_LEFT_TOP:
             start_x = x;
@@ -198,7 +206,7 @@ void pge_draw_text(int x, int y, int scale, pge_Align align, const char *text) {
             start_y = y - text_height;
             break;
     }
-
+    // Draw the text
     cur_x = start_x;
     int cur_y = start_y;
     for (int i = 0; i < text_size; i++) {

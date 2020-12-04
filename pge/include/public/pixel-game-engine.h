@@ -1,6 +1,7 @@
 #ifndef PGE_H_
 #define PGE_H_
 
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -172,7 +173,7 @@ void pge_draw_rect(int x, int y, int width, int height);
 void pge_draw_rect_fill(int x, int y, int width, int height);
 void pge_draw_circle(int center_x, int center_y, int radius);
 void pge_draw_circle_fill(int center_x, int center_y, int radius);
-void pge_draw_text(int x, int y, int scale, pge_Align align, const char *text);
+void pge_draw_text(int x, int y, int scale, pge_Align align, const char *format, ...);
 
 // Font
 //--------------------------------------------------------------------------------
