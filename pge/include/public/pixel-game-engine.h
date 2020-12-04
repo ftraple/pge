@@ -83,6 +83,24 @@ typedef enum {
     PGE_EVENT_CONTROLLER_BUTTON,
 } pge_EventType;
 
+typedef enum {
+    PGE_AUDIO_STATUS_STOPED,
+    PGE_AUDIO_STATUS_PLAYING,
+    PGE_AUDIO_STATUS_PAUSED,
+} pge_AudioStatus;
+
+typedef enum {
+    PGE_ALIGN_LEFT_TOP,
+    PGE_ALIGN_LEFT_CENTER,
+    PGE_ALIGN_LEFT_BOTTON,
+    PGE_ALIGN_CENTER_TOP,
+    PGE_ALIGN_CENTER_CENTER,
+    PGE_ALIGN_CENTER_BOTTON,
+    PGE_ALIGN_RIGHT_TOP,
+    PGE_ALIGN_RIGHT_CENTER,
+    PGE_ALIGN_RIGHT_BOTTON
+} pge_Align;
+
 typedef struct {
     int id;
     uint32_t timestamp;
@@ -110,12 +128,6 @@ typedef struct {
     pge_ControllerAxisEvent controller_axis;
 
 } pge_Event;
-
-typedef enum {
-    PGE_AUDIO_STATUS_STOPED,
-    PGE_AUDIO_STATUS_PLAYING,
-    PGE_AUDIO_STATUS_PAUSED,
-} pge_AudioStatus;
 
 // System
 //--------------------------------------------------------------------------------
@@ -160,7 +172,7 @@ void pge_draw_rect(int x, int y, int width, int height);
 void pge_draw_rect_fill(int x, int y, int width, int height);
 void pge_draw_circle(int center_x, int center_y, int radius);
 void pge_draw_circle_fill(int center_x, int center_y, int radius);
-void pge_draw_text(int x, int y, int scale, const char *text);
+void pge_draw_text(int x, int y, int scale, pge_Align align, const char *text);
 
 // Font
 //--------------------------------------------------------------------------------

@@ -125,7 +125,7 @@ void pge_draw_circle_fill(int center_x, int center_y, int radius) {
 }
 
 static void draw_char(int x, int y, int scale, char c) {
-    c = c - 32;  // Remove the 32 first character
+    c = c - 32;  // Remove the 32 first character from ASC table
     SDL_Rect rect = {x, y, scale, scale};
     for (int row = 0; row < font.char_height; ++row) {
         for (int col = 0; col < font.char_width; ++col) {
@@ -138,16 +138,72 @@ static void draw_char(int x, int y, int scale, char c) {
     }
 }
 
-void pge_draw_text(int x, int y, int scale, const char *text) {
+void pge_draw_text(int x, int y, int scale, pge_Align align, const char *text) {
     if (scale <= 0) scale = 1;
-    int cur_x = x;
-    int cur_y = y;
     int text_size = strlen(text);
+    int start_x = x;
+    int start_y = y;
+    // Calculate text width and height
+    //int text_width = ((text_size - 1) * ((font.char_width * scale) + font.char_space)) - +font.char_space;
+    int text_width = 0;
+    int text_height = 0;
+    int cur_x = 0;
     for (int i = 0; i < text_size; i++) {
-        if (text[i] == ' ') {
+        if (text[i] == '\n') {
+            if (cur_x > text_width) {
+                text_width = cur_x;
+            }
+            cur_x = 0;
+            text_height += font.char_height * scale;
+        } else {
             cur_x += (font.char_width * scale) + font.char_space;
-        } else if (text[i] == '\n') {
-            cur_x = x;
+        }
+    }
+
+    switch (align) {
+        case PGE_ALIGN_LEFT_TOP:
+            start_x = x;
+            start_y = y;
+            break;
+        case PGE_ALIGN_LEFT_CENTER:
+            start_x = x;
+            start_y = y - text_height / 2;
+            break;
+        case PGE_ALIGN_LEFT_BOTTON:
+            start_x = x;
+            start_y = y - text_height;
+            break;
+        case PGE_ALIGN_CENTER_TOP:
+            start_x = x - text_width / 2;
+            start_y = y;
+            break;
+        case PGE_ALIGN_CENTER_CENTER:
+            start_x = x - text_width / 2;
+            start_y = y - text_height / 2;
+            break;
+        case PGE_ALIGN_CENTER_BOTTON:
+            start_x = x - text_width / 2;
+            start_y = y - text_height;
+            break;
+        case PGE_ALIGN_RIGHT_TOP:
+            start_x = x - text_width;
+            start_y = y;
+            break;
+        case PGE_ALIGN_RIGHT_CENTER:
+            start_x = x - text_width;
+            start_y = y - text_height / 2;
+            break;
+        case PGE_ALIGN_RIGHT_BOTTON:
+            start_x = x - text_width;
+            start_y = y - text_height;
+            break;
+    }
+
+    cur_x = start_x;
+    int cur_y = start_y;
+    for (int i = 0; i < text_size; i++) {
+        if (text[i] == '\n') {
+            cur_x = start_x;
             cur_y += font.char_height * scale;
         } else {
             draw_char(cur_x, cur_y, scale, text[i]);

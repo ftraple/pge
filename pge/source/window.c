@@ -14,11 +14,11 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
     window->width = width;
     window->height = height;
     window->pixel_scale = pixel_scale;
-    window->max_fps = max_fps;
     window->is_fullscreen = fullscreen;
     window->is_running = false;
     window->audio_voulume = SDL_MIX_MAXVOLUME;
     window->audio_muted = false;
+    pge_window_set_max_fps(max_fps);
 
     // Intialize the SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -60,12 +60,7 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
         window->controller[i].is_active = false;
     }
 
-    // FPS
-    if (window->max_fps == 0) {
-        window->frame_step_ms = 0;
-    } else {
-        window->frame_step_ms = 1000.0f / window->max_fps;
-    }
+    // Frame rate
     window->frame_start = SDL_GetTicks();
     window->frame_rate = window->max_fps;
     window->frame_rate_count = 0;
@@ -118,9 +113,14 @@ int pge_window_get_pixel_scale() {
 
 void pge_window_set_max_fps(int max_fps) {
     window->max_fps = max_fps;
+    if (window->max_fps == 0) {
+        window->frame_step_ms = 0;
+    } else {
+        window->frame_step_ms = 1000.0f / window->max_fps;
+    }
 }
 
-int pge_window_get_fps() {
+int pge_window_get_max_fps() {
     return window->max_fps;
 }
 

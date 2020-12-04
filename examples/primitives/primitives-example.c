@@ -49,9 +49,9 @@ int main(int argc, char **argv) {
             }
             // Show frame rate
             char text_frame_rate[100];
-            snprintf(text_frame_rate, sizeof(text_frame_rate), "%d\n", pge_window_get_frame_rate());
+            snprintf(text_frame_rate, sizeof(text_frame_rate), "Frame %d\n", pge_window_get_frame_rate());
             pge_draw_set_current_color(PGE_COLOR_WHITE);
-            pge_draw_text(2, 2, 2, text_frame_rate);
+            pge_draw_text(80, 60, 2, PGE_ALIGN_CENTER_CENTER, text_frame_rate);
         }
 
         pge_window_draw();

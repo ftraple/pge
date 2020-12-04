@@ -29,7 +29,7 @@ int main() {
         pge_window_clear(PGE_COLOR_BLACK);
         // Select Sound
         pge_draw_set_current_color(PGE_COLOR_BROWN);
-        pge_draw_text(10, 10, 2, "Press Button:\nA = play   B = stop\nX = pause  Y = resume");
+        pge_draw_text(10, 10, 2, PGE_ALIGN_LEFT_TOP, "Press Button:\nA = play   B = stop\nX = pause  Y = resume");
         if (pge_controller_is_active(controller_id)) {
             if (pge_controller_button(controller_id, PGE_CONTROLLER_BUTTON_A) &&
                 pge_sound_status(sound) == PGE_AUDIO_STATUS_STOPED) {

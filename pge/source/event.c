@@ -67,7 +67,6 @@ bool pge_event_wait(pge_Event *event) {
                 event->controller_button.timestamp = sdl_event.cbutton.timestamp;
                 event->controller_button.button = sdl_event.cbutton.button;
                 event->controller_button.is_pressed = (sdl_event.cbutton.state == 0) ? false : true;
-                printf("PGE_EVENT_CONTROLLER_BUTTON %d  %d\n", event->controller_button.id, event->controller_button.button);
                 return true;
             }
             case SDL_CONTROLLERAXISMOTION: {
