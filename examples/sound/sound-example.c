@@ -6,10 +6,10 @@
 
 int main() {
     // Create window
-    int screen_scale = 2;
-    int screen_width = 640 / screen_scale;
-    int screen_height = 480 / screen_scale;
-    if (!pge_window_create("PGE - Sound Example", screen_width, screen_height, screen_scale, 60, false)) {
+    int pixel_scale = 2;
+    int screen_width = 640 / pixel_scale;
+    int screen_height = 480 / pixel_scale;
+    if (!pge_window_create("PGE - Sound Example", screen_width, screen_height, pixel_scale, 60, false)) {
         printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
