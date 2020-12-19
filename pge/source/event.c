@@ -24,10 +24,6 @@ bool pge_event_wait(pge_Event *event) {
             }
         }
         switch (sdl_event.type) {
-            case SDL_QUIT: {
-                window->is_running = false;
-                return false;
-            }
             case SDL_CONTROLLERDEVICEADDED: {
                 int controller_index = sdl_event.cdevice.which;
                 if (controller_index < PGE_CONTROLLER_MAX &&

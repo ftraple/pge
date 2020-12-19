@@ -28,10 +28,6 @@ int main() {
     int text_crop_height = pge_text_get_height(text_crop);
     // Game loop
     while (pge_window_is_running()) {
-        // Capture events
-        pge_Event event;
-        while (pge_event_wait(&event)) {
-        }
         pge_window_clear(PGE_COLOR_BLACK);
         // Draw Text
         pge_text_draw(text, text_x, 100);

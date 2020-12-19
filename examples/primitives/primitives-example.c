@@ -14,10 +14,6 @@ int main(int argc, char **argv) {
     }
     // Game loop
     while (pge_window_is_running()) {
-        // Get events
-        pge_Event event;
-        while (pge_event_wait(&event)) {
-        }
         // Repeat 100 times per frame
         pge_window_clear(PGE_COLOR_BLACK);
         for (int i = 0; i < 100; i++) {

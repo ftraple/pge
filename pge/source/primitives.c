@@ -165,7 +165,6 @@ void pge_draw_text(int x, int y, int scale, pge_Align align, const char *format,
             cur_x += (font.char_width * scale) + font.char_space;
         }
     }
-    printf("text_height = %d\n", text_height);
 
     // Calculate the alignment
     switch (align) {

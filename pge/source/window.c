@@ -15,7 +15,6 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
     window->height = height;
     window->pixel_scale = pixel_scale;
     window->is_fullscreen = fullscreen;
-    window->is_running = false;
     window->audio_voulume = SDL_MIX_MAXVOLUME;
     window->audio_muted = false;
     pge_window_set_max_fps(max_fps);
@@ -65,7 +64,6 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
     window->frame_rate = window->max_fps;
     window->frame_rate_count = 0;
     window->frame_rate_start = window->frame_start;
-    window->is_running = true;
     return true;
 }
 
@@ -78,7 +76,10 @@ void pge_window_destroy() {
 }
 
 bool pge_window_is_running() {
-    return window->is_running;
+    if (SDL_QuitRequested()) {
+        return false;
+    }
+    return true;
 }
 
 void pge_window_clear(pge_Color color) {

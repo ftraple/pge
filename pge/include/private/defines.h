@@ -27,7 +27,6 @@ struct pge_Window_t {
     bool is_fullscreen;
     SDL_Window *sdl_window;
     SDL_Renderer *sdl_renderer;
-    bool is_running;
     float frame_step_ms;
     float frame_start;
     int sleep;
