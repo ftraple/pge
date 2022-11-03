@@ -2,7 +2,7 @@
 
 pge_Window *window = NULL;
 
-bool pge_window_create(const char *title, int width, int height, int pixel_scale, int max_fps, bool fullscreen) {
+bool pge_window_create(const char *title, int width, int height, int pixel_scale, int max_fps, bool full_screen) {
     if (pixel_scale <= 0) pixel_scale = 1;
     pge_set_error_message("");
     // Create the window object
@@ -14,7 +14,7 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
     window->width = width;
     window->height = height;
     window->pixel_scale = pixel_scale;
-    window->is_fullscreen = fullscreen;
+    window->is_full_screen = full_screen;
     window->is_running = false;
     window->audio_voulume = SDL_MIX_MAXVOLUME;
     window->audio_muted = false;
@@ -124,8 +124,8 @@ int pge_window_get_max_fps() {
     return window->max_fps;
 }
 
-bool pge_window_is_fullscreen() {
-    return window->is_fullscreen;
+bool pge_window_is_full_screen() {
+    return window->is_full_screen;
 }
 
 int pge_window_get_frame_rate() {

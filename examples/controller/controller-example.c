@@ -65,17 +65,17 @@ void print_controller_buttons(pge_ControllerButtonEvent* button_event) {
         case PGE_CONTROLLER_BUTTON_RIGHT_SHOULDER:
             printf(" Button Right Shoulder ");
             break;
-        case PGE_CONTROLLER_BUTTON_DPAD_UP:
-            printf(" Button Dpad Up ");
+        case PGE_CONTROLLER_BUTTON_PAD_UP:
+            printf(" Button pad Up ");
             break;
-        case PGE_CONTROLLER_BUTTON_DPAD_DOWN:
-            printf(" Button Dpad Down ");
+        case PGE_CONTROLLER_BUTTON_PAD_DOWN:
+            printf(" Button pad Down ");
             break;
-        case PGE_CONTROLLER_BUTTON_DPAD_LEFT:
-            printf(" Button Dpad Left ");
+        case PGE_CONTROLLER_BUTTON_PAD_LEFT:
+            printf(" Button pad Left ");
             break;
-        case PGE_CONTROLLER_BUTTON_DPAD_RIGHT:
-            printf(" Button Dpad Right ");
+        case PGE_CONTROLLER_BUTTON_PAD_RIGHT:
+            printf(" Button pad Right ");
             break;
     }
     printf("%s\n", button_event->is_pressed ? "pressed" : "released");
@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
     // Create
     int screen_width = 160;
     int screen_height = 120;
-    if (!pge_window_create("PGE - Controller Example", screen_width, screen_height, 4, 60, false)) {
+    if (!pge_window_create("PGE - Controller Example", screen_width, screen_height, 4, 0, false)) {
         printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }

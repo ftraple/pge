@@ -7,7 +7,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_subdirectory(pge)
 
-option(BUILD_EXAMPLES "Build Examples" OFF)
+option(BUILD_EXAMPLES "Build Examples" ON)
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()

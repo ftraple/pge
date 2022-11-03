@@ -165,7 +165,6 @@ void pge_draw_text(int x, int y, int scale, pge_Align align, const char *format,
             cur_x += (font.char_width * scale) + font.char_space;
         }
     }
-    printf("text_height = %d\n", text_height);
 
     // Calculate the alignment
     switch (align) {
@@ -177,7 +176,7 @@ void pge_draw_text(int x, int y, int scale, pge_Align align, const char *format,
             start_x = x;
             start_y = y - text_height / 2;
             break;
-        case PGE_ALIGN_LEFT_BOTTON:
+        case PGE_ALIGN_LEFT_BOTTOM:
             start_x = x;
             start_y = y - text_height;
             break;
@@ -189,7 +188,7 @@ void pge_draw_text(int x, int y, int scale, pge_Align align, const char *format,
             start_x = x - text_width / 2;
             start_y = y - text_height / 2;
             break;
-        case PGE_ALIGN_CENTER_BOTTON:
+        case PGE_ALIGN_CENTER_BOTTOM:
             start_x = x - text_width / 2;
             start_y = y - text_height;
             break;
@@ -201,7 +200,7 @@ void pge_draw_text(int x, int y, int scale, pge_Align align, const char *format,
             start_x = x - text_width;
             start_y = y - text_height / 2;
             break;
-        case PGE_ALIGN_RIGHT_BOTTON:
+        case PGE_ALIGN_RIGHT_BOTTOM:
             start_x = x - text_width;
             start_y = y - text_height;
             break;

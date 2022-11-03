@@ -10,8 +10,8 @@ int main() {
     int screen_height = 480;
     int pixel_scale = 1;
     int fps = 60;
-    bool fullscreen = false;
-    if (!pge_window_create("PGE - Text Example", screen_width, screen_height, pixel_scale, fps, fullscreen)) {
+    bool full_screen = false;
+    if (!pge_window_create("PGE - Text Example", screen_width, screen_height, pixel_scale, fps, full_screen)) {
         printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }

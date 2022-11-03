@@ -24,7 +24,7 @@ struct pge_Window_t {
     int height;
     int pixel_scale;
     int max_fps;
-    bool is_fullscreen;
+    bool is_full_screen;
     SDL_Window *sdl_window;
     SDL_Renderer *sdl_renderer;
     bool is_running;

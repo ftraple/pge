@@ -38,7 +38,7 @@ static const pge_Color PGE_COLOR_BROWN = {127, 106, 79, 255};
 static const pge_Color PGE_COLOR_DARK_BROWN = {76, 63, 47, 255};
 static const pge_Color PGE_COLOR_WHITE = {255, 255, 255, 255};
 static const pge_Color PGE_COLOR_BLACK = {0, 0, 0, 255};
-static const pge_Color PGE_COLOR_TRANPARENT = {0, 0, 0, 0};
+static const pge_Color PGE_COLOR_TRANSPARENT = {0, 0, 0, 0};
 static const pge_Color PGE_COLOR_MAGENTA = {255, 0, 255, 255};
 static const pge_Color PGE_COLOR_RAY_WHITE = {245, 245, 245, 255};
 
@@ -60,10 +60,10 @@ typedef enum {
     PGE_CONTROLLER_BUTTON_RIGHT_STICK,
     PGE_CONTROLLER_BUTTON_LEFT_SHOULDER,
     PGE_CONTROLLER_BUTTON_RIGHT_SHOULDER,
-    PGE_CONTROLLER_BUTTON_DPAD_UP,
-    PGE_CONTROLLER_BUTTON_DPAD_DOWN,
-    PGE_CONTROLLER_BUTTON_DPAD_LEFT,
-    PGE_CONTROLLER_BUTTON_DPAD_RIGHT,
+    PGE_CONTROLLER_BUTTON_PAD_UP,
+    PGE_CONTROLLER_BUTTON_PAD_DOWN,
+    PGE_CONTROLLER_BUTTON_PAD_LEFT,
+    PGE_CONTROLLER_BUTTON_PAD_RIGHT,
     PGE_CONTROLLER_BUTTON_MAX
 } pge_ControllerButton;
 
@@ -93,13 +93,13 @@ typedef enum {
 typedef enum {
     PGE_ALIGN_LEFT_TOP,
     PGE_ALIGN_LEFT_CENTER,
-    PGE_ALIGN_LEFT_BOTTON,
+    PGE_ALIGN_LEFT_BOTTOM,
     PGE_ALIGN_CENTER_TOP,
     PGE_ALIGN_CENTER_CENTER,
-    PGE_ALIGN_CENTER_BOTTON,
+    PGE_ALIGN_CENTER_BOTTOM,
     PGE_ALIGN_RIGHT_TOP,
     PGE_ALIGN_RIGHT_CENTER,
-    PGE_ALIGN_RIGHT_BOTTON
+    PGE_ALIGN_RIGHT_BOTTOM
 } pge_Align;
 
 typedef struct {
@@ -118,7 +118,7 @@ typedef struct {
     int id;
     uint32_t timestamp;
     pge_ControllerAxis axis;
-    int value;
+    int16_t value;
     bool is_pressed;
 } pge_ControllerAxisEvent;
 
@@ -138,7 +138,7 @@ const char *pge_get_error_message();
 
 // Window
 //--------------------------------------------------------------------------------
-bool pge_window_create(const char *title, int width, int height, int pixel_scale, int max_fps, bool fullscreen);
+bool pge_window_create(const char *title, int width, int height, int pixel_scale, int max_fps, bool full_screen);
 void pge_window_destroy();
 bool pge_window_is_running();
 void pge_window_clear(pge_Color color);
@@ -148,7 +148,7 @@ int pge_window_get_height();
 int pge_window_get_pixel_scale();
 void pge_window_set_max_fps(int max_fps);
 int pge_window_get_max_fps();
-bool pge_window_is_fullscreen();
+bool pge_window_is_full_screen();
 int pge_window_get_frame_rate();
 
 // Events

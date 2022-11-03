@@ -5,6 +5,13 @@
 #include "pixel-game-engine.h"
 
 int main() {
+    // Mapping SNES USB gamepad (Add before crate the window)
+    char* snes_map = "030000001f08000001e4000010010000,USB gamepad,a:b1,b:b2,x:b0,y:b3,back:b8,start:b9,leftshoulder:b4,rightshoulder:b5,leftx:a0,lefty:a1,rightx:a3,righty:a4";
+    int result = pge_controller_add_mapping(snes_map);
+    if (pge_controller_add_mapping(snes_map) == -1) {
+        printf("Fail to add a new controller mapping.\n");
+    }
+
     // Create window
     int pixel_scale = 2;
     int screen_width = 640 / pixel_scale;

@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     // Create
     int screen_width = 160;
     int screen_height = 120;
-    if (!pge_window_create("PGE- Primitives Example", screen_width, screen_height, 4, 0, false)) {
+    if (!pge_window_create("PGE- Primitives Example", screen_width, screen_height, 4, 60, false)) {
         printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }
