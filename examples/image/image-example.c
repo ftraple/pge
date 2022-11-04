@@ -11,7 +11,7 @@ int main() {
     int pixel_scale = 1;
     int fps = 60;
     bool full_screen = false;
-    if (!pge_window_create("PGE - Text Example", screen_width, screen_height, pixel_scale, fps, full_screen)) {
+    if (!pge_window_create("PGE - Image Example", screen_width, screen_height, pixel_scale, fps, full_screen)) {
         printf("%s\n", pge_get_error_message());
         return EXIT_FAILURE;
     }

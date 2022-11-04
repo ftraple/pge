@@ -127,7 +127,6 @@ typedef struct {
     pge_ControllerDeviceEvent controller_device;
     pge_ControllerButtonEvent controller_button;
     pge_ControllerAxisEvent controller_axis;
-
 } pge_Event;
 
 // System

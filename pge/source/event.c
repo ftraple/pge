@@ -24,12 +24,10 @@ bool pge_event_wait(pge_Event *event) {
             }
         }
         switch (sdl_event.type) {
-            case SDL_QUIT: {
-                window->is_running = false;
-                return false;
-            }
             case SDL_CONTROLLERDEVICEADDED: {
+                printf("[INFO] sdl_event.type [%d]\n", sdl_event.type);
                 int controller_index = sdl_event.cdevice.which;
+                printf("[INFO] Controller [%d] found.\n", controller_index);
                 if (controller_index < PGE_CONTROLLER_MAX &&
                     window->controller[controller_index].is_active == false &&
                     SDL_IsGameController(controller_index)) {
@@ -78,9 +76,7 @@ bool pge_event_wait(pge_Event *event) {
                 event->controller_axis.is_pressed = (sdl_event.caxis.value == 0) ? false : true;
                 return true;
             }
-            default: {
-                float frame_end = SDL_GetTicks();
-            }
+            frame_end = SDL_GetTicks();
         }
     }
     return false;

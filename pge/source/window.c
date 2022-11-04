@@ -15,18 +15,17 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
     window->height = height;
     window->pixel_scale = pixel_scale;
     window->is_full_screen = full_screen;
-    window->is_running = false;
-    window->audio_voulume = SDL_MIX_MAXVOLUME;
+    window->audio_volume = SDL_MIX_MAXVOLUME;
     window->audio_muted = false;
     pge_window_set_max_fps(max_fps);
 
-    // Intialize the SDL
+    // Initialize the SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         pge_set_error_message("Fail to init SDL: %s", SDL_GetError());
         return false;
     }
 
-    // Intialize the TTF
+    // Initialize the TTF
     int result = TTF_Init();
     if (TTF_Init() != 0) {
         pge_set_error_message("Fail to init SDL_ttf: %s", TTF_GetError());
@@ -42,13 +41,13 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
                                           width * pixel_scale, height * pixel_scale,
                                           SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (!window->sdl_window) {
-        pge_set_error_message("Fail to create the SDL window: %s", TTF_GetError());
+        pge_set_error_message("Fail to create the SDL window: %s", SDL_GetError());
         return false;
     }
     // Create the SDL renderer
     window->sdl_renderer = SDL_CreateRenderer(window->sdl_window, -1, SDL_RENDERER_ACCELERATED);
     if (!window->sdl_renderer) {
-        pge_set_error_message("Fail to create the SDL renderer: %s", TTF_GetError());
+        pge_set_error_message("Fail to create the SDL renderer: %s", SDL_GetError());
         return false;
     }
     SDL_SetWindowMinimumSize(window->sdl_window, width * pixel_scale, height * pixel_scale);
@@ -65,7 +64,6 @@ bool pge_window_create(const char *title, int width, int height, int pixel_scale
     window->frame_rate = window->max_fps;
     window->frame_rate_count = 0;
     window->frame_rate_start = window->frame_start;
-    window->is_running = true;
     return true;
 }
 
@@ -78,7 +76,7 @@ void pge_window_destroy() {
 }
 
 bool pge_window_is_running() {
-    return window->is_running;
+    return !SDL_QuitRequested();
 }
 
 void pge_window_clear(pge_Color color) {

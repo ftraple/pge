@@ -1,5 +1,5 @@
-#ifndef PGE_WINDOW_H_
-#define PGE_WINDOW_H_
+#ifndef PGE_DEFINES_H_
+#define PGE_DEFINES_H_
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -37,7 +37,7 @@ struct pge_Window_t {
     // Controllers
     Controller controller[PGE_CONTROLLER_MAX];
     // Audio
-    int audio_voulume;
+    int audio_volume;
     bool audio_muted;
 };
 
@@ -47,4 +47,4 @@ struct pge_Font_t {
 
 void pge_set_error_message(const char *format, ...);
 
-#endif  // PGE_WINDOW_H_
+#endif  // PGE_DEFINES_H_
